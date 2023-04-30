@@ -2,8 +2,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:login_page/model/HomePage.dart';
-
 import 'model/user.dart';
+
+User usuario1 = new User(1,"Marcato","Batata");
+List<User> lista01 = <User>[];
 
 void main() {
   runApp(const MyApp());
@@ -39,6 +41,7 @@ class loginPage extends State<MainPage>{
   Widget build(BuildContext context) {
     final largura = MediaQuery.of(context).size.width;
     final altura = MediaQuery.of(context).size.height;
+    final errorMessage error = errorMessage();
 
     return Scaffold(
       body: Container(
@@ -97,14 +100,26 @@ class loginPage extends State<MainPage>{
                             String username = userController.text;
                             String password = passwordController.text;
 
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => HomePage(),)
-                            );
-                          },
+                            if(username == usuario1.user && username != null){
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => HomePage(),)
+                              );
+                            }
+                            else {
+                              error.setError("Usuário ou senha incorretos");
+                            }
+                            },
                           child: Icon(Icons.arrow_forward_ios),
                         ),
                       ),
+                    ),
+                    ValueListenableBuilder(
+                        valueListenable: error.error,
+                      builder: (context, String value,_) => Text(value,
+                      style: TextStyle(
+                        color: Colors.red
+                      ),),
                     )
                   ],
                 ),
@@ -114,5 +129,13 @@ class loginPage extends State<MainPage>{
       ),
     );
   }
+}
 
+class errorMessage extends ChangeNotifier{
+  final ValueNotifier<String> error = ValueNotifier("");
+
+  setError(String message){
+    error.value = message;
+    notifyListeners();
+  }
 }
