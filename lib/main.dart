@@ -131,7 +131,7 @@ class loginPage extends State<MainPage>{
                     ValueListenableBuilder(
                         valueListenable: error.error,
                       builder: (context, String value,_) => Text(value,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.red
                       ),),
                     )
