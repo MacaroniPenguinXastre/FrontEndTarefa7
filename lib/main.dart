@@ -1,11 +1,11 @@
 
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:login_page/model/HomePage.dart';
+import 'package:http/http.dart' as http;
 import 'model/user.dart';
-
-User usuario1 = new User(1,"Marcato","Batata");
-List<User> lista01 = <User>[];
 
 void main() {
   runApp(const MyApp());
@@ -42,6 +42,10 @@ class loginPage extends State<MainPage>{
     final largura = MediaQuery.of(context).size.width;
     final altura = MediaQuery.of(context).size.height;
     final errorMessage error = errorMessage();
+
+    final userController = TextEditingController();
+    final passwordController = TextEditingController();
+    final url = Uri.parse('http://localhost:8888/public/login');
 
     return Scaffold(
       body: Container(
@@ -96,11 +100,21 @@ class loginPage extends State<MainPage>{
                         width: 150,
                         height: 50,
                         child: ElevatedButton(
-                          onPressed: () {
+                          onPressed: () async{
                             String username = userController.text;
                             String password = passwordController.text;
 
-                            if(username == usuario1.user && username != null){
+                            String loginJSON = json.encode({
+                              "email":username,
+                              "password":password
+                            });
+
+                            var response = await http.post(url,
+                                headers: {"Content-Type": "application/json"},
+                                body: loginJSON
+                            );
+
+                            if(response.statusCode == 200){
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(builder: (context) => HomePage(),)
