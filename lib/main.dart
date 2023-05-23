@@ -31,11 +31,59 @@ class MyApp extends StatelessWidget{
 class MainPage extends StatefulWidget{
   @override
   State<MainPage> createState() {
-    return loginPage();
+    return LoginPage();
   }
 }
 
-class loginPage extends State<MainPage>{
+class registerPage extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    final largura = MediaQuery.of(context).size.width;
+    final altura = MediaQuery.of(context).size.height;
+    final errorMessage error = errorMessage();
+    return Scaffold(
+      appBar: AppBar(
+
+      ),
+      body: Container(
+        width: largura,
+        height: altura,
+        color: Colors.black38,
+        child: Form(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextFormField(
+                decoration: const InputDecoration(
+                  labelText: 'Email',
+                    border: OutlineInputBorder()
+                ),
+              ),
+              TextFormField(
+                decoration: const InputDecoration(
+                  labelText: 'Nome',
+                  border: OutlineInputBorder()
+                ),
+              ),
+              TextFormField(
+                obscureText: true,
+                decoration: const InputDecoration(
+                    labelText: 'Senha',
+                    border: OutlineInputBorder()
+                ),
+              )
+              //TODO: Criar o resto dos campos, com uma dropbox para cargo.
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+}
+
+class LoginPage extends State<MainPage>{
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +114,7 @@ class loginPage extends State<MainPage>{
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Se logue'),
+                    const Text('Se logue'),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 20.0),
                       child: TextFormField(
@@ -96,7 +144,7 @@ class loginPage extends State<MainPage>{
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 20.0),
-                      child: Container(
+                      child: SizedBox(
                         width: 150,
                         height: 50,
                         child: ElevatedButton(
@@ -114,17 +162,19 @@ class loginPage extends State<MainPage>{
                                 body: loginJSON
                             );
 
-                            if(response.statusCode == 200){
+                            if(response.statusCode == 202){
+                              final jsonBody = json.decode(response.body);
+                              User logged = User.fromJson(jsonBody);
                               Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => HomePage(),)
+                                  MaterialPageRoute(builder: (context) => HomePage(loggedUser: logged),)
                               );
                             }
                             else {
                               error.setError("Usuário ou senha incorretos");
                             }
                             },
-                          child: Icon(Icons.arrow_forward_ios),
+                          child: const Icon(Icons.arrow_forward_ios),
                         ),
                       ),
                     ),
@@ -134,7 +184,13 @@ class loginPage extends State<MainPage>{
                       style: const TextStyle(
                         color: Colors.red
                       ),),
-                    )
+                    ),
+                    TextButton(onPressed: (){
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => registerPage()
+                          )
+                      );
+                    }, child: const Text('Cadastrar novo usuário'))
                   ],
                 ),
               ),

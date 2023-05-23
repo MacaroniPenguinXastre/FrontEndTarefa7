@@ -1,19 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:login_page/main.dart';
+import 'package:login_page/model/user.dart';
 
 class HomePage extends StatefulWidget{
+  final User loggedUser;
+
+  const HomePage({Key? key, required this.loggedUser}) : super(key: key);
   @override
-  HomePageState createState() => HomePageState();
+  HomePageState createState() => HomePageState(loggedUser: loggedUser);
 
 }
 
 
 class HomePageState extends State<HomePage>{
+  final User loggedUser;
+
+  HomePageState({required this.loggedUser});
+
   int selectedIndex = 0;
-  List<Widget> _page = [TestScreen(),OtherScreen()];
+  final List<Widget> _page = [const TestScreen(),const OtherScreen()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Olá, ${loggedUser.nome}')
+      ),
       body: Container(
         child: Row(
           children: [
@@ -31,7 +42,7 @@ class HomePageState extends State<HomePage>{
                             selectedIndex = index;
                           });
                         },
-                        destinations: [
+                        destinations: const [
                           NavigationRailDestination(icon: Icon(Icons.add_circle_outline),
                               label: Text('')),
                           NavigationRailDestination(icon: Icon(Icons.ac_unit),
@@ -59,6 +70,8 @@ class HomePageState extends State<HomePage>{
 }
 
 class TestScreen extends StatelessWidget{
+  const TestScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,6 +83,8 @@ class TestScreen extends StatelessWidget{
 }
 
 class OtherScreen extends StatelessWidget{
+  const OtherScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
