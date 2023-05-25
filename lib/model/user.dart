@@ -8,15 +8,15 @@ class LoginDTO{
 
    LoginDTO(this.email, this.password);
 }
-
+//Cargo ADM fica restrito a ADM
 enum UserCargo{
-   ALUNO,ADM,MENTOR,EMPRESA_PARCEIRA
+   ALUNO,MENTOR,EMPRESA_PARCEIRA
 }
 
 
 //Por questões de segurança, senha NÃO é armazenada.
 class User {
-   int id;
+   int? id;
    String cargo;
    String email;
    String nome;
@@ -36,6 +36,25 @@ class User {
       return {
          'nome': nome,
          'email': email,
+         'cargo': cargo
+      };
+   }
+}
+
+class RegisterUser{
+   String nome;
+   String email;
+   String senha;
+   String cargo;
+
+
+   RegisterUser(this.nome, this.email, this.senha,this.cargo);
+
+   Map<String, dynamic> toJson() {
+      return {
+         'nome': nome,
+         'email': email,
+         'senha' : senha,
          'cargo': cargo
       };
    }

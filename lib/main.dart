@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:login_page/model/HomePage.dart';
 import 'package:http/http.dart' as http;
+import 'model/RegisterPage.dart';
 import 'model/user.dart';
 
 void main() {
@@ -33,54 +34,6 @@ class MainPage extends StatefulWidget{
   State<MainPage> createState() {
     return LoginPage();
   }
-}
-
-class registerPage extends StatelessWidget{
-  @override
-  Widget build(BuildContext context) {
-    final largura = MediaQuery.of(context).size.width;
-    final altura = MediaQuery.of(context).size.height;
-    final errorMessage error = errorMessage();
-    return Scaffold(
-      appBar: AppBar(
-
-      ),
-      body: Container(
-        width: largura,
-        height: altura,
-        color: Colors.black38,
-        child: Form(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'Email',
-                    border: OutlineInputBorder()
-                ),
-              ),
-              TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'Nome',
-                  border: OutlineInputBorder()
-                ),
-              ),
-              TextFormField(
-                obscureText: true,
-                decoration: const InputDecoration(
-                    labelText: 'Senha',
-                    border: OutlineInputBorder()
-                ),
-              )
-              //TODO: Criar o resto dos campos, com uma dropbox para cargo.
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
 }
 
 class LoginPage extends State<MainPage>{
