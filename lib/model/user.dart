@@ -47,7 +47,6 @@ class RegisterUser{
    String senha;
    String cargo;
 
-
    RegisterUser(this.nome, this.email, this.senha,this.cargo);
 
    Map<String, dynamic> toJson() {

@@ -18,7 +18,7 @@ class HomePageState extends State<HomePage>{
   HomePageState({required this.loggedUser});
 
   int selectedIndex = 0;
-  final List<Widget> _page = [const TestScreen(),const OtherScreen()];
+  final List<Widget> _page = [const TestScreen(),const PracticeScreen()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,10 +43,10 @@ class HomePageState extends State<HomePage>{
                           });
                         },
                         destinations: const [
-                          NavigationRailDestination(icon: Icon(Icons.add_circle_outline),
-                              label: Text('')),
-                          NavigationRailDestination(icon: Icon(Icons.ac_unit),
-                              label: Text(''))
+                          NavigationRailDestination(icon: Icon(Icons.home_rounded),
+                              label: Text('Home')),
+                          NavigationRailDestination(icon: Icon(Icons.school_rounded),
+                              label: Text('Cursos'))
                         ],
                       ),
                     )
@@ -82,8 +82,8 @@ class TestScreen extends StatelessWidget{
   }
 }
 
-class OtherScreen extends StatelessWidget{
-  const OtherScreen({super.key});
+class PracticeScreen extends StatelessWidget{
+  const PracticeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
