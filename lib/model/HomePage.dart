@@ -2,29 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:login_page/main.dart';
 import 'package:login_page/model/user.dart';
 
-class HomePage extends StatefulWidget{
+class HomePage extends StatefulWidget {
   final User loggedUser;
 
   const HomePage({Key? key, required this.loggedUser}) : super(key: key);
   @override
   HomePageState createState() => HomePageState(loggedUser: loggedUser);
-
 }
 
-
-class HomePageState extends State<HomePage>{
+class HomePageState extends State<HomePage> {
   final User loggedUser;
 
   HomePageState({required this.loggedUser});
 
   int selectedIndex = 0;
-  final List<Widget> _page = [const TestScreen(),const OtherScreen()];
+  final List<Widget> _page = [TestScreen(), PracticeScreen()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Olá, ${loggedUser.nome}')
-      ),
+      appBar: AppBar(title: Text('Olá, ${loggedUser.nome}')),
       body: Container(
         child: Row(
           children: [
@@ -37,16 +33,18 @@ class HomePageState extends State<HomePage>{
                       child: NavigationRail(
                         extended: true,
                         selectedIndex: selectedIndex,
-                        onDestinationSelected: (int index){
+                        onDestinationSelected: (int index) {
                           setState(() {
                             selectedIndex = index;
                           });
                         },
                         destinations: const [
-                          NavigationRailDestination(icon: Icon(Icons.add_circle_outline),
-                              label: Text('')),
-                          NavigationRailDestination(icon: Icon(Icons.ac_unit),
-                              label: Text(''))
+                          NavigationRailDestination(
+                              icon: Icon(Icons.home_rounded),
+                              label: Text('Home')),
+                          NavigationRailDestination(
+                              icon: Icon(Icons.school_rounded),
+                              label: Text('Cursos'))
                         ],
                       ),
                     )
@@ -59,18 +57,16 @@ class HomePageState extends State<HomePage>{
                 child: IndexedStack(
                   index: selectedIndex,
                   children: _page,
-              )
-            )
+                ))
           ],
         ),
       ),
     );
   }
-  
 }
 
-class TestScreen extends StatelessWidget{
-  const TestScreen({super.key});
+class TestScreen extends StatelessWidget {
+  TestScreen({Key? key});
 
   @override
   Widget build(BuildContext context) {
@@ -82,8 +78,8 @@ class TestScreen extends StatelessWidget{
   }
 }
 
-class OtherScreen extends StatelessWidget{
-  const OtherScreen({super.key});
+class PracticeScreen extends StatelessWidget {
+  PracticeScreen({Key? key});
 
   @override
   Widget build(BuildContext context) {
