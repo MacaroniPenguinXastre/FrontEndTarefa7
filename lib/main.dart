@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
@@ -7,6 +6,7 @@ import 'package:login_page/model/HomePage.dart';
 import 'package:http/http.dart' as http;
 import 'model/RegisterPage.dart';
 import 'model/user.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -22,7 +22,9 @@ class MyApp extends StatelessWidget{
       title: "Login",
       //Define tema escuro
       theme: ThemeData(
-        brightness: Brightness.dark
+          brightness: Brightness.dark,
+          useMaterial3: true,
+          colorSchemeSeed: Colors.amberAccent
       ),
       home: MainPage(),
     );
@@ -32,11 +34,11 @@ class MyApp extends StatelessWidget{
 class MainPage extends StatefulWidget{
   @override
   State<MainPage> createState() {
-    return LoginPage();
+    return LoginPageState();
   }
 }
 
-class LoginPage extends State<MainPage>{
+class LoginPageState extends State<MainPage>{
 
   @override
   Widget build(BuildContext context) {
@@ -55,75 +57,79 @@ class LoginPage extends State<MainPage>{
         child: Row(
           children: [
             Expanded(
-                flex: 3,
-                child: Image.asset('images/pato.jpg',
-                    fit: BoxFit.fill,height: altura,
-              )
-            ),
-              Container(
-                color: Colors.black38,
-                width: 350,
+              flex: 3,
+              child: Image.asset(
+                'images/pato.jpg',
+                fit: BoxFit.fill,
                 height: altura,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text('Se logue'),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 20.0),
-                      child: TextFormField(
-                        controller: userController,
-                        decoration: const InputDecoration(
-                          label: Text('Usuário'),
+              ),
+            ),
+            Container(
+              color: Colors.black38,
+              width: 350,
+              height: altura,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text('Se logue'),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20.0),
+                    child: TextFormField(
+                      controller: userController,
+                      decoration: const InputDecoration(
+                          labelText: 'Usuário',
                           border: OutlineInputBorder()
-                        ),
-                        validator: (user){
-                          if(user == null){
-                            return 'Digite um usuário';
-                          }
-                          return null;
-                        },
+                      ),
+                      validator: (user) {
+                        if(user == null || user.isEmpty){
+                          return 'Digite um usuário';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20.0),
+                    child: TextFormField(
+                      controller: passwordController,
+                      obscureText: true,
+                      decoration: const InputDecoration(
+                          labelText: 'Senha',
+                          border: OutlineInputBorder()
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 20.0),
-                      child: TextFormField(
-                        controller: passwordController,
-                        obscureText: true,
-                        decoration: const InputDecoration(
-                          label: Text('Senha'),
-                          border: OutlineInputBorder()
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 20.0),
-                      child: SizedBox(
-                        width: 150,
-                        height: 50,
-                        child: ElevatedButton(
-                          onPressed: () async{
-                            String username = userController.text;
-                            String password = passwordController.text;
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20.0),
+                    child: SizedBox(
+                      width: 150,
+                      height: 50,
+                      child: ElevatedButton(
+                        onPressed: () async {
+                          String username = userController.text;
+                          String password = passwordController.text;
 
-                            String loginJSON = json.encode({
-                              "email":username,
-                              "password":password
-                            });
+                          String loginJSON = json.encode({
+                            "email": username,
+                            "password": password
+                          });
 
-                            var response = await http.post(url,
-                                headers: {"Content-Type": "application/json"},
-                                body: loginJSON
+                          var response = await http.post(url,
+                              headers: {"Content-Type": "application/json"},
+                              body: loginJSON
+                          );
+
+                          if(response.statusCode == 202){
+                            final jsonBody = json.decode(response.body);
+                            User logged = User.fromJson(jsonBody);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => HomePage(loggedUser: logged),)
                             );
+                          }
 
-                            if(response.statusCode == 202){
-                              final jsonBody = json.decode(response.body);
-                              User logged = User.fromJson(jsonBody);
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => HomePage(loggedUser: logged),)
-                              );
-                            }
-                            else {
+
+                          else {
                               error.setError("Usuário ou senha incorretos");
                             }
                             },
@@ -140,7 +146,7 @@ class LoginPage extends State<MainPage>{
                     ),
                     TextButton(onPressed: (){
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => registerPage()
+                          MaterialPageRoute(builder: (context) => RegisterPage()
                           )
                       );
                     }, child: const Text('Cadastrar novo usuário'))
