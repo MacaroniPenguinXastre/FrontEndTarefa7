@@ -18,7 +18,9 @@ class HomePageState extends State<HomePage>{
   HomePageState({required this.loggedUser});
 
   int selectedIndex = 0;
+
   final List<Widget> _page = [const TestScreen(),const PracticeScreen()];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,12 +43,10 @@ class HomePageState extends State<HomePage>{
                           setState(() {
                             selectedIndex = index;
                           });
-                        },
-                        destinations: const [
-                          NavigationRailDestination(icon: Icon(Icons.home_rounded),
-                              label: Text('Home')),
-                          NavigationRailDestination(icon: Icon(Icons.school_rounded),
-                              label: Text('Cursos'))
+
+                          },
+                        destinations: const[
+
                         ],
                       ),
                     )
@@ -66,7 +66,6 @@ class HomePageState extends State<HomePage>{
       ),
     );
   }
-  
 }
 
 class TestScreen extends StatelessWidget{
