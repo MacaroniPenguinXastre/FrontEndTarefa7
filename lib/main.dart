@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:login_page/model/HomePage.dart';
 import 'package:http/http.dart' as http;
@@ -127,8 +126,6 @@ class LoginPageState extends State<MainPage>{
                                 MaterialPageRoute(builder: (context) => HomePage(loggedUser: logged),)
                             );
                           }
-
-
                           else {
                               error.setError("Usuário ou senha incorretos");
                             }

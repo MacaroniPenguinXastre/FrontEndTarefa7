@@ -38,18 +38,27 @@ class RegisterPage extends StatelessWidget {
 
       switch(response.statusCode){
         case 200:
-          const snackBar = SnackBar(content: Text('Cadastro Bem-Sucedido!'));
+          const snackBar = SnackBar(
+              content: Text('Cadastro Bem-Sucedido!'),
+              duration: Duration(seconds: 2),
+          );
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
           break;
 
         case 400:
-          const snackBar = SnackBar(content: Text('Usuário inválido ou já existente'));
+          const snackBar = SnackBar(
+              content: Text('Usuário inválido ou já existente'),
+              duration: Duration(seconds: 2),
+          );
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
           break;
       }
     } catch(e){
       if(e is SocketException){
-        const snackBar = SnackBar(content: Text('Erro de conexão: Verifique sua conexão de rede.'));
+        const snackBar = SnackBar(
+            content: Text('Erro de conexão: Verifique sua conexão de rede.'),
+            duration: Duration(seconds: 2),
+        );
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
       }
     }
