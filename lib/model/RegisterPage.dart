@@ -75,7 +75,7 @@ class RegisterPage extends StatelessWidget {
         .of(context)
         .size
         .height;
-    final errorMessage error = errorMessage();
+    final ErrorMessage error = ErrorMessage();
     return Scaffold(
       appBar: AppBar(),
       body: Container(

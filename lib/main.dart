@@ -43,7 +43,7 @@ class LoginPageState extends State<MainPage>{
   Widget build(BuildContext context) {
     final largura = MediaQuery.of(context).size.width;
     final altura = MediaQuery.of(context).size.height;
-    final errorMessage error = errorMessage();
+    final ErrorMessage error = ErrorMessage();
 
     final userController = TextEditingController();
     final passwordController = TextEditingController();
@@ -157,7 +157,7 @@ class LoginPageState extends State<MainPage>{
   }
 }
 
-class errorMessage extends ChangeNotifier{
+class ErrorMessage extends ChangeNotifier{
   final ValueNotifier<String> error = ValueNotifier("");
 
   setError(String message){
