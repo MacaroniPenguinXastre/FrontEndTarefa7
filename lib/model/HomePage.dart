@@ -1,13 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:login_page/AdmPages/AdmAccess.dart';
-import 'package:login_page/AdmPages/Cursos.dart';
-import 'package:login_page/AdmPages/Perguntas.dart';
-import 'package:login_page/AdmPages/Quiz.dart';
-import 'package:login_page/AdmPages/Treinamentos.dart';
-import 'package:login_page/AdmPages/Usuarios.dart';
-import 'package:login_page/AdmPages/VagasEmprego.dart';
-import 'package:login_page/AlunoPages/SeusTreinamentos.dart';
-import 'package:login_page/AlunoPages/VagaEmpregoAluno.dart';
 import 'package:login_page/model/user.dart';
 import 'dart:core';
 
