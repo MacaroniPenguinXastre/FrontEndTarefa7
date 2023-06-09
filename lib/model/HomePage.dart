@@ -1,29 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:login_page/AdmPages/Cursos.dart';
+import 'package:login_page/AdmPages/Perguntas.dart';
+import 'package:login_page/AdmPages/Treinamentos.dart';
+import 'package:login_page/AdmPages/Usuarios.dart';
+import 'package:login_page/AdmPages/VagasEmprego.dart';
+import 'package:login_page/AlunoPages/SeusTreinamentos.dart';
+import 'package:login_page/AlunoPages/VagaEmpregoAluno.dart';
 import 'package:login_page/main.dart';
 import 'package:login_page/model/user.dart';
 
-class HomePage extends StatefulWidget{
+class HomePage extends StatefulWidget {
   final User loggedUser;
 
   const HomePage({Key? key, required this.loggedUser}) : super(key: key);
-  @override
-  HomePageState createState() => HomePageState(loggedUser: loggedUser);
 
+  @override
+  HomePageState createState() => HomePageState();
 }
 
-
-class HomePageState extends State<HomePage>{
-  final User loggedUser;
-
-  HomePageState({required this.loggedUser});
-
+class HomePageState extends State<HomePage> {
   int selectedIndex = 0;
-  final List<Widget> _page = [const TestScreen(),const PracticeScreen()];
+
+  List<Widget> getWidgetsForCargo() {
+    switch (widget.loggedUser.cargo) {
+      case 'ADM':
+        return const [CursosTelaADM(), TreinamentosTelaADM(), UsuariosTelaADM(), VagasTelaADM(), PerguntasTelaADM()];
+      case 'ALUNO':
+        return const [VagaEmpregoAlunoTela(), TreinamentosAlunoTela()];
+      case 'EMPRESA_PARCEIRA':
+        return const [];
+      case 'MENTOR':
+        return const [];
+      default:
+        return [];
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final List<Widget> _page = getWidgetsForCargo();
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Olá, ${loggedUser.nome}')
+        title: Text('Olá, ${widget.loggedUser.nome}'),
       ),
       body: Container(
         child: Row(
@@ -37,17 +56,12 @@ class HomePageState extends State<HomePage>{
                       child: NavigationRail(
                         extended: true,
                         selectedIndex: selectedIndex,
-                        onDestinationSelected: (int index){
+                        onDestinationSelected: (int index) {
                           setState(() {
                             selectedIndex = index;
                           });
                         },
-                        destinations: const [
-                          NavigationRailDestination(icon: Icon(Icons.home_rounded),
-                              label: Text('Home')),
-                          NavigationRailDestination(icon: Icon(Icons.school_rounded),
-                              label: Text('Cursos'))
-                        ],
+                        destinations: const [],
                       ),
                     )
                   ],
@@ -55,41 +69,14 @@ class HomePageState extends State<HomePage>{
               ),
             ),
             Expanded(
-                flex: 4,
-                child: IndexedStack(
-                  index: selectedIndex,
-                  children: _page,
-              )
-            )
+              flex: 4,
+              child: IndexedStack(
+                index: selectedIndex,
+                children: _page,
+              ),
+            ),
           ],
         ),
-      ),
-    );
-  }
-  
-}
-
-class TestScreen extends StatelessWidget{
-  const TestScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        color: Colors.white70,
-      ),
-    );
-  }
-}
-
-class PracticeScreen extends StatelessWidget{
-  const PracticeScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        color: Colors.purple,
       ),
     );
   }

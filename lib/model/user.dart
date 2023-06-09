@@ -8,9 +8,10 @@ class LoginDTO{
 
    LoginDTO(this.email, this.password);
 }
+
 //Cargo ADM fica restrito a ADM
 enum UserCargo{
-   ALUNO,MENTOR,EMPRESA_PARCEIRA
+   ALUNO,ADM,MENTOR,EMPRESA_PARCEIRA
 }
 
 
@@ -31,6 +32,7 @@ class User {
          json['nome'],
       );
    }
+
 
    Map<String, dynamic> toJson() {
       return {
