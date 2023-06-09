@@ -18,7 +18,7 @@ class TreinamentosAlunoTela extends StatelessWidget{
               'Lista de Treinamentos',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Table(
               defaultColumnWidth: IntrinsicColumnWidth(),
               border: TableBorder.all(),

@@ -8,7 +8,7 @@ class VagaEmpregoAlunoTela extends StatefulWidget {
 }
 
 class _VagaEmpregoAlunoTelaState extends State<VagaEmpregoAlunoTela> {
-  late String selectedOption; // Campo agora é marcado como 'late'
+  String selectedOption = "";
 
   @override
   Widget build(BuildContext context) {

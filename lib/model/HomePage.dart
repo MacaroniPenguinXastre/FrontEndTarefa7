@@ -1,15 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:login_page/AdmPages/AdmAccess.dart';
 import 'package:login_page/AdmPages/Cursos.dart';
 import 'package:login_page/AdmPages/Perguntas.dart';
+import 'package:login_page/AdmPages/Quiz.dart';
 import 'package:login_page/AdmPages/Treinamentos.dart';
 import 'package:login_page/AdmPages/Usuarios.dart';
 import 'package:login_page/AdmPages/VagasEmprego.dart';
 import 'package:login_page/AlunoPages/SeusTreinamentos.dart';
 import 'package:login_page/AlunoPages/VagaEmpregoAluno.dart';
-import 'package:login_page/main.dart';
 import 'package:login_page/model/user.dart';
+import 'dart:core';
+
+import '../AlunoPages/AlunoAccess.dart';
+
+class WidgetAndDestination {
+  final List<Widget> widgets;
+  final List<NavigationRailDestination> destinations;
+
+  WidgetAndDestination(this.widgets, this.destinations);
+}
 
 class HomePage extends StatefulWidget {
+
+
   final User loggedUser;
 
   const HomePage({Key? key, required this.loggedUser}) : super(key: key);
@@ -21,24 +34,41 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage> {
   int selectedIndex = 0;
 
-  List<Widget> getWidgetsForCargo() {
+  WidgetAndDestination getWidgetsForCargo() {
     switch (widget.loggedUser.cargo) {
       case 'ADM':
-        return const [CursosTelaADM(), TreinamentosTelaADM(), UsuariosTelaADM(), VagasTelaADM(), PerguntasTelaADM()];
+        return WidgetAndDestination(
+            admWidgets,
+            destinationsAdm
+        );
+
       case 'ALUNO':
-        return const [VagaEmpregoAlunoTela(), TreinamentosAlunoTela()];
-      case 'EMPRESA_PARCEIRA':
-        return const [];
+        return WidgetAndDestination(
+            alunoWidgets,
+            alunoDestinations
+        );
+        case 'EMPRESA_PARCEIRA':
+        return WidgetAndDestination(
+            [],
+            []
+        );
       case 'MENTOR':
-        return const [];
+        return WidgetAndDestination(
+            [],
+            []
+        );
       default:
-        return [];
+        return WidgetAndDestination(
+            [],
+            []
+        );
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> _page = getWidgetsForCargo();
+    final WidgetAndDestination widgetsAndDestination = getWidgetsForCargo();
+    final List<Widget> _page = widgetsAndDestination.widgets;
 
     return Scaffold(
       appBar: AppBar(
@@ -61,7 +91,7 @@ class HomePageState extends State<HomePage> {
                             selectedIndex = index;
                           });
                         },
-                        destinations: const [],
+                        destinations: widgetsAndDestination.destinations,
                       ),
                     )
                   ],
