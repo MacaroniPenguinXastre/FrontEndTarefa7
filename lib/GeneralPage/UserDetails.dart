@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../model/user.dart';
+
 class UserDetailsPage extends StatelessWidget{
-  const UserDetailsPage({super.key});
+  final User loggedUser;
+  const UserDetailsPage({super.key, required this.loggedUser});
 
   @override
   Widget build(BuildContext context) {

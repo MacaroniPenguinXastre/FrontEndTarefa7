@@ -48,7 +48,7 @@ class LoginPageState extends State<MainPage>{
 
     final userController = TextEditingController();
     final passwordController = TextEditingController();
-    final url = Uri.parse('http://localhost:8888/public/login');
+    final url = Uri.parse('https://456c-2804-14c-487-1bd2-00-1b95.ngrok-free.app/public/login');
 
     return Scaffold(
       body: Container(
@@ -77,12 +77,12 @@ class LoginPageState extends State<MainPage>{
                     child: TextFormField(
                       controller: userController,
                       decoration: const InputDecoration(
-                          labelText: 'Usuário',
+                          labelText: 'Email',
                           border: OutlineInputBorder()
                       ),
                       validator: (user) {
                         if(user == null || user.isEmpty){
-                          return 'Digite um usuário';
+                          return 'Digite um email';
                         }
                         return null;
                       },

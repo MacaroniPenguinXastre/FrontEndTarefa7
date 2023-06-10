@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../model/user.dart';
+
 class QuizTelaADM extends StatelessWidget{
-  const QuizTelaADM({super.key});
+  final User loggedUser;
+  const QuizTelaADM({super.key, required this.loggedUser});
 
   @override
   Widget build(BuildContext context) {

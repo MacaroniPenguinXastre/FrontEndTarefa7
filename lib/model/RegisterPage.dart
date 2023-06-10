@@ -10,7 +10,7 @@ class RegisterPage extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController nomeController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final url = Uri.parse('http://localhost:8888/public/register');
+  final url = Uri.parse('https://456c-2804-14c-487-1bd2-00-1b95.ngrok-free.app/public/register');
 
   RegisterPage({Key? key});
 

@@ -1,10 +1,14 @@
 import 'dart:core';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:login_page/AlunoPages/SeusTreinamentos.dart';
 import 'package:login_page/GeneralPage/UserDetails.dart';
 
+import '../model/user.dart';
 import 'VagaEmpregoAluno.dart';
+
+late final User loggedUser;
 
 List<NavigationRailDestination> alunoDestinations = [
   const NavigationRailDestination(
@@ -21,9 +25,9 @@ List<NavigationRailDestination> alunoDestinations = [
   )
 ];
 
-List<Widget>alunoWidgets = const [
-  TreinamentosAlunoTela(),
-  UserDetailsPage(),
-  VagaEmpregoAlunoTela()
+List<Widget>alunoWidgets = [
+  TreinamentosAlunoTela(loggedUser: loggedUser),
+  UserDetailsPage(loggedUser: loggedUser),
+  VagaEmpregoAlunoTela(loggedUser: loggedUser)
 ];
 

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:login_page/AdmPages/AdmAccess.dart';
+import 'package:login_page/Empresa_ParceiraPages/Empresa_ParceiraAccess.dart';
+import 'package:login_page/MentorPages/MentorAccess.dart';
 import 'package:login_page/AdmPages/Cursos.dart';
 import 'package:login_page/AdmPages/Perguntas.dart';
 import 'package:login_page/AdmPages/Quiz.dart';
@@ -12,6 +14,7 @@ import 'package:login_page/model/user.dart';
 import 'dart:core';
 
 import '../AlunoPages/AlunoAccess.dart';
+import '../GeneralPage/UserDetails.dart';
 
 class WidgetAndDestination {
   final List<Widget> widgets;
@@ -21,7 +24,6 @@ class WidgetAndDestination {
 }
 
 class HomePage extends StatefulWidget {
-
 
   final User loggedUser;
 
@@ -37,25 +39,37 @@ class HomePageState extends State<HomePage> {
   WidgetAndDestination getWidgetsForCargo() {
     switch (widget.loggedUser.cargo) {
       case 'ADM':
+        List<Widget> admWidgets = [
+          CursosTelaADM(loggedUser: widget.loggedUser),
+          TreinamentosTelaADM(loggedUser: widget.loggedUser),
+          UsuariosTelaADM(loggedUser: widget.loggedUser),
+          VagasTelaADM(loggedUser: widget.loggedUser),
+          PerguntasTelaADM(loggedUser: widget.loggedUser),
+          QuizTelaADM(loggedUser: widget.loggedUser),
+        ];
         return WidgetAndDestination(
-            admWidgets,
-            destinationsAdm
+          admWidgets,
+          destinationsAdm,
         );
-
       case 'ALUNO':
+        List<Widget>alunoWidgets = [
+          TreinamentosAlunoTela(loggedUser: widget.loggedUser),
+          UserDetailsPage(loggedUser: widget.loggedUser),
+          VagaEmpregoAlunoTela(loggedUser: widget.loggedUser)
+        ];
         return WidgetAndDestination(
             alunoWidgets,
             alunoDestinations
         );
         case 'EMPRESA_PARCEIRA':
         return WidgetAndDestination(
-            [],
-            []
+            empresaWidgets,
+            empresaDestinations
         );
       case 'MENTOR':
         return WidgetAndDestination(
-            [],
-            []
+            mentorWidgets,
+            mentorDestinations
         );
       default:
         return WidgetAndDestination(
