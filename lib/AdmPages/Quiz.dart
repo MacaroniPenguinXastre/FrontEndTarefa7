@@ -54,7 +54,7 @@ class QuizTelaADM extends StatelessWidget {
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.transparent,
+                  backgroundColor: Colors.transparent,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30.0),
                   ),

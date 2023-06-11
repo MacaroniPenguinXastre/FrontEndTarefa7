@@ -8,12 +8,13 @@ import '../main.dart';
 
 class RegisterPage extends StatelessWidget {
   UserCargo? selectedCargo;
+  final User loggedUser;
   final TextEditingController emailController = TextEditingController();
   final TextEditingController nomeController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final url = Uri.parse('$mainURL/public/register');
+  final url = Uri.parse('$mainURL/adm/users');
 
-  RegisterPage({super.key});
+  RegisterPage({super.key, required this.loggedUser});
 
   List<DropdownMenuItem<UserCargo>> _buildCargoDropdownMenuItems() {
     return UserCargo.values.map((UserCargo cargo) {
