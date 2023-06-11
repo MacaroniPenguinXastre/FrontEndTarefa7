@@ -1,0 +1,8 @@
+enum StatusTreinamento {
+  ANDAMENTO,
+  CONCLUIDO,
+  INSCRITO,
+  CANCELADO,
+  INCOMPLETO,
+  REPROVADO
+}
