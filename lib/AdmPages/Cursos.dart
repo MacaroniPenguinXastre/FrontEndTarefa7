@@ -1,7 +1,10 @@
-  import 'dart:math';
-
-  import 'package:flutter/material.dart';
-  import 'package:login_page/model/User.dart';
+import 'dart:convert';
+import 'dart:io';
+import 'package:http/http.dart' as http;
+import 'package:flutter/material.dart';
+import 'package:login_page/model/Curso.dart';
+import 'package:login_page/model/User.dart';
+import 'package:login_page/model/Values.dart';
 
   class CursosTelaADM extends StatelessWidget {
     final User loggedUser;
@@ -12,7 +15,7 @@
     Widget build(BuildContext context) {
       return Scaffold(
         appBar: AppBar(
-          title: Text('Página Inicial'),
+          title: const Text('Página Inicial'),
         ),
         body: Center(
           child: Column(
@@ -31,7 +34,7 @@
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.transparent,
+                    backgroundColor: Colors.transparent,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.0),
                     ),
@@ -42,7 +45,7 @@
                   ),
                 ),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               SizedBox(
                 width: 200.0,
                 height: 60.0,
@@ -56,7 +59,7 @@
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.transparent,
+                    backgroundColor: Colors.transparent,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.0),
                     ),
@@ -67,7 +70,7 @@
                   ),
                 ),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               SizedBox(
                 width: 200.0,
                 height: 60.0,
@@ -81,7 +84,7 @@
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.transparent,
+                    backgroundColor: Colors.transparent,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.0),
                     ),
@@ -101,60 +104,121 @@
 
   class CriarCursoPage extends StatelessWidget {
     final User loggedUser;
-    const CriarCursoPage({Key? key, required this.loggedUser}) : super(key: key);
+    final TextEditingController tituloController = TextEditingController();
+    final TextEditingController descricaoController = TextEditingController();
+    final TextEditingController conteudoController = TextEditingController();
+
+    CriarCursoPage({Key? key, required this.loggedUser}) : super(key: key);
+
+    void sendCurso(BuildContext context)async{
+      String titulo = tituloController.text;
+      String descricao = descricaoController.text;
+      String conteudo = conteudoController.text;
+      final URL = Uri.parse('$mainURL/cursos');
+      RegisterCurso registerCurso = RegisterCurso(titulo: titulo, descricao: descricao, admCriador: loggedUser, materialDidatico: conteudo);
+      String jsonCurso = jsonEncode(registerCurso.toJson());
+
+      try{
+        http.Response response = await http.post(URL,
+            headers: {'Content-Type': 'application/json'}, body: jsonCurso);
+
+        switch(response.statusCode){
+          case 200:
+            const snackBar = SnackBar(
+              content: Text('Curso cadastrado!'),
+              duration: Duration(seconds: 2),
+            );
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            break;
+
+          case 400:
+            const snackBar = SnackBar(
+              content: Text('Requisição inválida: Cheque os campos'),
+              duration: Duration(seconds: 2),
+            );
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            break;
+
+          case 502:
+            const snackBar = SnackBar(
+              content: Text('Campos nulos'),
+              duration: Duration(seconds: 2),
+            );
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            break;
+        }
+      } catch(e){
+        if(e is SocketException){
+          const snackBar = SnackBar(
+            content: Text('Erro de conexão: Verifique sua conexão com o sistema.'),
+            duration: Duration(seconds: 2),
+          );
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        }
+      }
+
+    }
 
     @override
     Widget build(BuildContext context) {
       return Scaffold(
         appBar: AppBar(
-          title: Text('Criar Curso'),
+          title: const Text('Criar Curso'),
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              TextField(
-                decoration: InputDecoration(
-                  labelText: 'Título',
-                  border: OutlineInputBorder(),
+        body: ListView(
+          children:[ Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: [
+                 TextField(
+                  controller: tituloController,
+                  decoration: const InputDecoration(
+                    labelText: 'Título',
+                    border: OutlineInputBorder(),
+                  ),
                 ),
-              ),
-              SizedBox(height: 16.0),
-              TextField(
-                decoration: InputDecoration(
-                  labelText: 'Descrição',
-                  border: OutlineInputBorder(),
+                const SizedBox(height: 16.0),
+                  TextField(
+                   controller: descricaoController,
+                  decoration: const InputDecoration(
+                    labelText: 'Descrição',
+                    border: OutlineInputBorder(),
+                  ),
                 ),
-              ),
-              SizedBox(height: 16.0),
-              TextField(
-                decoration: InputDecoration(
-                  labelText: 'Conteúdo',
-                  border: OutlineInputBorder(),
+                const SizedBox(height: 16.0),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextField(
+                      controller: conteudoController,
+                    maxLines: null,
+                    decoration: const InputDecoration(
+                      labelText: 'Conteúdo didático',
+                      border: OutlineInputBorder(),
+                    ),
                 ),
-              ),
-              SizedBox(height: 16.0),
-              SizedBox(
-                width: double.infinity,
-                height: 60.0,
-                child: ElevatedButton(
-                  onPressed: () {
-                    // Lógica para criar o curso
-                  },
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.transparent,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0),
+                  ),
+                const SizedBox(height: 16.0),
+                SizedBox(
+                  width: double.infinity,
+                  height: 60.0,
+                  child: ElevatedButton(
+                    onPressed:()=> sendCurso(context),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.transparent,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                      ),
+                    ),
+                    child: const Text(
+                      'Criar Curso',
+                      style: TextStyle(fontSize: 18.0),
                     ),
                   ),
-                  child: const Text(
-                    'Criar Curso',
-                    style: TextStyle(fontSize: 18.0),
-                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
+          ]
         ),
       );
     }
@@ -194,7 +258,7 @@
                 },
                 hint: const Text('Selecione um curso'),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               SizedBox(
                 width: double.infinity,
                 height: 60.0,
@@ -203,7 +267,7 @@
                     // Lógica para deletar o curso
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.transparent,
+                    backgroundColor: Colors.transparent,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.0),
                     ),
@@ -223,37 +287,34 @@
 
   class TodosCursosPage extends StatelessWidget {
     final User loggedUser;
-    final List<String> cursos = [
-      'Curso 1',
-      'Curso 2',
-      'Curso 3',
-      'Curso 4',
-      'Curso 5',
-    ];
+    final URL = Uri.parse('$mainURL/cursos');
 
     TodosCursosPage({Key? key, required this.loggedUser}) : super(key: key);
 
+    void getCursos()async{
+      final response = await http.get(URL);
+
+      if(response.statusCode == 200){
+        
+      }
+    }
+
     @override
     Widget build(BuildContext context) {
+
       return Scaffold(
         appBar: AppBar(
           title: const Text('Todos os Cursos'),
         ),
         body: ListView.builder(
-          itemCount: cursos.length,
-          itemBuilder: (context, index) {
-            return ListTile(
-              title: Text(
-                cursos[index],
-                style: const TextStyle(fontSize: 18.0),
-              ),
-              leading: const Icon(
-                Icons.book,
-                size: 30.0,
-              ),
-            );
-          },
-        ),
+          itemCount: 20,
+      shrinkWrap: true,
+      itemBuilder: (BuildContext context,int index){
+        return ListTile(
+          leading: Text('$index'),
+          title: Text('TESTANDO')
+        );
+      })
       );
     }
   }

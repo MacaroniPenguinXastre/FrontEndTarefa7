@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:login_page/model/Treinamento.dart';
 import 'package:login_page/model/User.dart';
+import 'package:login_page/model/Values.dart';
+import 'package:http/http.dart' as http;
 
 class Curso {
   int id;
@@ -17,5 +21,41 @@ class Curso {
     required this.materialDidatico,
     required this.treinamentosCurso
   });
+  /*
+  factory Curso.fromJson(Map<String, dynamic> json) {
+    return Curso(
+      id: json['id'],
+      titulo: json['titulo'],
+      descricao: json['descricao'],
+      admCriador: User.fromJson(json['admCriador']),
+      materialDidatico: json['materialDidatico'],
+      treinamentosCurso: List<Treinamento>.from(json['treinamentosCurso'].map((x) => Treinamento.fromJson(x))),
+    );
+  }
+*/
+}
 
+class RegisterCurso{
+  String titulo;
+  String descricao;
+  User admCriador;
+  String materialDidatico;
+
+
+  RegisterCurso({
+    required this.titulo,
+    required this.descricao,
+    required this.admCriador,
+    required this.materialDidatico,
+
+  });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'titulo': titulo,
+      'descricao': descricao,
+      'admCriador' : admCriador,
+      'materialDidatico': materialDidatico
+    };
+  }
 }
