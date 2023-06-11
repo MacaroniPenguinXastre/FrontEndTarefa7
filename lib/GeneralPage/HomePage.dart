@@ -10,12 +10,12 @@ import 'package:login_page/AdmPages/Usuarios.dart';
 import 'package:login_page/AdmPages/VagasEmprego.dart';
 import 'package:login_page/AlunoPages/SeusTreinamentos.dart';
 import 'package:login_page/AlunoPages/VagaEmpregoAluno.dart';
-import 'package:login_page/model/user.dart';
+import 'package:login_page/model/User.dart';
 import 'dart:core';
 
 import '../AlunoPages/AlunoAccess.dart';
 import '../Empresa_ParceiraPages/TodasAtividades.dart';
-import '../GeneralPage/UserDetails.dart';
+import 'UserDetails.dart';
 import '../MentorPages/ultimas10atividades.dart';
 
 class WidgetAndDestination {

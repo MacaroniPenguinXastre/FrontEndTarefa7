@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../model/user.dart';
+import '../model/User.dart';
 
 class TreinamentosAlunoTela extends StatelessWidget{
   final User loggedUser;

@@ -1,7 +1,7 @@
   import 'dart:math';
 
   import 'package:flutter/material.dart';
-  import 'package:login_page/model/user.dart';
+  import 'package:login_page/model/User.dart';
 
   class CursosTelaADM extends StatelessWidget {
     final User loggedUser;

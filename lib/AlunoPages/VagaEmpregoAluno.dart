@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:login_page/AlunoPages/AlunoAccess.dart';
 
-import '../model/user.dart';
+import '../model/User.dart';
 
 class VagaEmpregoAlunoTela extends StatefulWidget {
   final User loggedUser;
@@ -75,7 +75,7 @@ class _VagaEmpregoAlunoTelaState extends State<VagaEmpregoAlunoTela> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => Treinamento(loggedUser: widget.loggedUser),
+                    builder: (context) => TreinamentoPage(loggedUser: widget.loggedUser),
                   ),
                 );
               },
@@ -88,9 +88,9 @@ class _VagaEmpregoAlunoTelaState extends State<VagaEmpregoAlunoTela> {
   }
 }
 
-class Treinamento extends StatelessWidget {
+class TreinamentoPage extends StatelessWidget {
   final User loggedUser;
-  const Treinamento({Key? key, required this.loggedUser}) : super(key: key);
+  const TreinamentoPage({Key? key, required this.loggedUser}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

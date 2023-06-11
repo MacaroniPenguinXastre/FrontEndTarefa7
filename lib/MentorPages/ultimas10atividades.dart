@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../model/user.dart';
+import '../model/User.dart';
 
 class Ultimas10Atividades extends StatefulWidget {
   final User loggedUser;

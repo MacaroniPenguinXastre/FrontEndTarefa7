@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../model/user.dart';
+import '../model/User.dart';
 
 class VagasTelaADM extends StatelessWidget{
   final User loggedUser;

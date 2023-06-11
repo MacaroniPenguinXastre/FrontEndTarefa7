@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:login_page/AlunoPages/SeusTreinamentos.dart';
 import 'package:login_page/GeneralPage/UserDetails.dart';
 
-import '../model/user.dart';
+import '../model/User.dart';
 import 'VagaEmpregoAluno.dart';
 
 late final User loggedUser;

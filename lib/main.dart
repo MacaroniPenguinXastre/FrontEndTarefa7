@@ -1,11 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:login_page/model/HomePage.dart';
+import 'package:login_page/GeneralPage/HomePage.dart';
 import 'package:http/http.dart' as http;
-import 'model/RegisterPage.dart';
-import 'model/RegisterUser.dart';
-import 'model/user.dart';
+import 'AdmPages/RegisterPage.dart';
+import 'GeneralPage/RegisterUser.dart';
+import 'model/User.dart';
 
 
 void main() {
