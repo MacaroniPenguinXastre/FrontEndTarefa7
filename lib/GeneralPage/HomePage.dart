@@ -46,7 +46,7 @@ class HomePageState extends State<HomePage> {
           TreinamentosTelaADM(loggedUser: widget.loggedUser),
           UsuariosTelaADM(loggedUser: widget.loggedUser),
           VagasTelaADM(loggedUser: widget.loggedUser),
-          PerguntasTelaADM(loggedUser: widget.loggedUser),
+          PerguntaScreenADM(loggedUser: widget.loggedUser),
           QuizTelaADM(loggedUser: widget.loggedUser),
         ];
         return WidgetAndDestination(

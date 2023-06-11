@@ -41,7 +41,7 @@ List<Widget>admWidgets =[
   TreinamentosTelaADM(loggedUser: loggedUser),
   UsuariosTelaADM(loggedUser: loggedUser),
   VagasTelaADM(loggedUser: loggedUser),
-  PerguntasTelaADM(loggedUser: loggedUser),
+  PerguntaScreenADM(loggedUser: loggedUser),
   QuizTelaADM(loggedUser: loggedUser)
 ];
 

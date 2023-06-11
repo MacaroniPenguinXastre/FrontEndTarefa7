@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:login_page/AlunoPages/AlunoAccess.dart';
+
 import 'package:login_page/model/Curso.dart';
 import 'package:login_page/model/User.dart';
 import 'package:login_page/model/Values.dart';

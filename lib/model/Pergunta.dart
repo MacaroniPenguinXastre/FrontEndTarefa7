@@ -53,3 +53,47 @@ class Pergunta {
       };
    }
 }
+
+
+class RegisterPergunta{
+   String enunciado;
+   String alternativaA;
+   String alternativaB;
+   String alternativaC;
+   String alternativaD;
+   String alternativaCorreta;
+   User admCriador;
+
+   RegisterPergunta(
+       this.enunciado,
+       this.alternativaA,
+       this.alternativaB,
+       this.alternativaC,
+       this.alternativaD,
+       this.alternativaCorreta,
+       this.admCriador);
+
+   factory RegisterPergunta.fromJson(Map<String, dynamic> json) {
+      return RegisterPergunta(
+         json['enunciado'],
+         json['alternativaA'],
+         json['alternativaB'],
+         json['alternativaC'],
+         json['alternativaD'],
+         json['alternativaCorreta'],
+         User.fromJson(json['admCriador']),
+      );
+   }
+
+   Map<String, dynamic> toJson() {
+      return {
+         'enunciado': enunciado,
+         'alternativaA': alternativaA,
+         'alternativaB': alternativaB,
+         'alternativaC': alternativaC,
+         'alternativaD': alternativaD,
+         'alternativaCorreta': alternativaCorreta,
+         'admCriador': admCriador.toJson()
+      };
+   }
+}
