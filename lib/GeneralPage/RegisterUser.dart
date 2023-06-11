@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:login_page/model/User.dart';
+import 'package:login_page/model/Values.dart';
 import 'dart:io';
 import '../main.dart';
 
@@ -10,7 +11,7 @@ class RegisterUserPage extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController nomeController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final url = Uri.parse('https://456c-2804-14c-487-1bd2-00-1b95.ngrok-free.app/public/register');
+  final url = Uri.parse('$mainURL/public/register');
 
   RegisterUserPage({Key? key});
 

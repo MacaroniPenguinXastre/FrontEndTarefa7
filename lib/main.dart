@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:login_page/GeneralPage/HomePage.dart';
 import 'package:http/http.dart' as http;
+import 'package:login_page/model/Values.dart';
 import 'AdmPages/RegisterPage.dart';
 import 'GeneralPage/RegisterUser.dart';
 import 'model/User.dart';
@@ -48,7 +49,7 @@ class LoginPageState extends State<MainPage>{
 
     final userController = TextEditingController();
     final passwordController = TextEditingController();
-    final url = Uri.parse('https://456c-2804-14c-487-1bd2-00-1b95.ngrok-free.app/public/login');
+    final url = Uri.parse('$mainURL/public/login');
 
     return Scaffold(
       body: Container(
