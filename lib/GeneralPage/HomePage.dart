@@ -89,11 +89,13 @@ class HomePageState extends State<HomePage> {
     }
   }
 
+
+
+
   @override
   Widget build(BuildContext context) {
     final WidgetAndDestination widgetsAndDestination = getWidgetsForCargo();
     final List<Widget> _page = widgetsAndDestination.widgets;
-
     return Scaffold(
       appBar: AppBar(
         title: Text('Olá, ${widget.loggedUser.nome}'),
@@ -103,7 +105,6 @@ class HomePageState extends State<HomePage> {
           children: [
             Expanded(
               child: Container(
-                color: Colors.white70,
                 child: Column(
                   children: [
                     Expanded(

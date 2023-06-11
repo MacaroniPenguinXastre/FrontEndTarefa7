@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:login_page/AlunoPages/AlunoAccess.dart';
 import 'package:login_page/model/Curso.dart';
 import 'package:login_page/model/User.dart';
 import 'package:login_page/model/Values.dart';
@@ -120,7 +121,7 @@ import 'package:login_page/model/Values.dart';
 
       try{
         http.Response response = await http.post(URL,
-            headers: {'Content-Type': 'application/json'}, body: jsonCurso);
+            headers: {'Content-Type': 'application/json; charset=utf-8'}, body: jsonCurso);
 
         switch(response.statusCode){
           case 200:
@@ -285,36 +286,62 @@ import 'package:login_page/model/Values.dart';
     }
   }
 
-  class TodosCursosPage extends StatelessWidget {
-    final User loggedUser;
-    final URL = Uri.parse('$mainURL/cursos');
+class TodosCursosPage extends StatefulWidget {
+  final User loggedUser;
 
-    TodosCursosPage({Key? key, required this.loggedUser}) : super(key: key);
+  const TodosCursosPage({Key? key, required this.loggedUser}) : super(key: key);
 
-    void getCursos()async{
-      final response = await http.get(URL);
+  @override
+  _TodosCursosPageState createState() => _TodosCursosPageState();
+}
 
-      if(response.statusCode == 200){
-        
-      }
+class _TodosCursosPageState extends State<TodosCursosPage> {
+  List<Curso> cursoList = [];
+
+  @override
+  void initState() {
+    getCursos();
+    super.initState();
+  }
+
+  void getCursos() async {
+    http.Response response = await http.get(
+        Uri.parse('$mainURL/adm/${widget.loggedUser.id}/cursos'),
+        headers: {'Content-Type': 'application/json'}
+    );
+
+    if(response.statusCode == 200){
+      List<dynamic> jsonResponse = jsonDecode(utf8.decode(response.bodyBytes));
+      setState(() {
+        cursoList = jsonResponse.map((json) => Curso.fromJson(json)).toList();
+      });
+
     }
-
-    @override
-    Widget build(BuildContext context) {
-
-      return Scaffold(
-        appBar: AppBar(
-          title: const Text('Todos os Cursos'),
-        ),
-        body: ListView.builder(
-          itemCount: 20,
-      shrinkWrap: true,
-      itemBuilder: (BuildContext context,int index){
-        return ListTile(
-          leading: Text('$index'),
-          title: Text('TESTANDO')
-        );
-      })
-      );
+    else{
+      print('Erro: ${response.statusCode}');
     }
   }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Todos os Cursos'),
+      ),
+      body: ListView.builder(
+        itemCount: cursoList.length,
+        shrinkWrap: true,
+        itemBuilder: (BuildContext context, int index) {
+          Curso curso = cursoList[index];
+
+          return ListTile(
+            leading: Text('${curso.id}'),
+            title: Text(curso.titulo),
+            subtitle: Text(curso.descricao),
+          );
+        },
+      ),
+    );
+  }
+}
+
