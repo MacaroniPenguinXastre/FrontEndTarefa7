@@ -52,6 +52,14 @@ class RegisterUserPage extends StatelessWidget {
           );
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
           break;
+
+        case 502:
+          const snackBar = SnackBar(
+            content: Text('Campos nulos'),
+            duration: Duration(seconds: 2),
+          );
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          break;
       }
     } catch(e){
       if(e is SocketException){

@@ -1,10 +1,10 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:login_page/model/HomePage.dart';
 import 'package:http/http.dart' as http;
 import 'model/RegisterPage.dart';
+import 'model/RegisterUser.dart';
 import 'model/user.dart';
 
 
@@ -128,7 +128,6 @@ class LoginPageState extends State<MainPage>{
                             );
                           }
 
-
                           else {
                               error.setError("Usuário ou senha incorretos");
                             }
@@ -146,7 +145,7 @@ class LoginPageState extends State<MainPage>{
                     ),
                     TextButton(onPressed: (){
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => RegisterPage()
+                          MaterialPageRoute(builder: (context) => RegisterUserPage()
                           )
                       );
                     }, child: const Text('Cadastrar novo usuário'))

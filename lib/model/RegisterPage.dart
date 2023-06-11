@@ -12,7 +12,7 @@ class RegisterPage extends StatelessWidget {
   final TextEditingController passwordController = TextEditingController();
   final url = Uri.parse('https://456c-2804-14c-487-1bd2-00-1b95.ngrok-free.app/public/register');
 
-  RegisterPage({Key? key});
+  RegisterPage({super.key});
 
   List<DropdownMenuItem<UserCargo>> _buildCargoDropdownMenuItems() {
     return UserCargo.values.map((UserCargo cargo) {
@@ -36,7 +36,7 @@ class RegisterPage extends StatelessWidget {
         headers: {'Content-Type': 'application/json'}, body: jsonUser);
 
     if (response.statusCode == 200) {
-      final snackBar = SnackBar(content: Text('Cadastro Bem-Sucedido!'));
+      const snackBar = SnackBar(content: Text('Cadastro Bem-Sucedido!'));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
   }
