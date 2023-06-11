@@ -4,7 +4,7 @@ import 'package:login_page/Empresa_ParceiraPages/Empresa_ParceiraAccess.dart';
 import 'package:login_page/MentorPages/MentorAccess.dart';
 import 'package:login_page/AdmPages/Cursos.dart';
 import 'package:login_page/AdmPages/Perguntas.dart';
-import 'package:login_page/AdmPages/Quiz.dart';
+import 'package:login_page/AdmPages/QuizPage.dart';
 import 'package:login_page/AdmPages/Treinamentos.dart';
 import 'package:login_page/AdmPages/Usuarios.dart';
 import 'package:login_page/AdmPages/VagasEmprego.dart';

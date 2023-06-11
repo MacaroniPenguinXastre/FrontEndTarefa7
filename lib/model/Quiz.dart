@@ -39,4 +39,19 @@ class Quiz {
       };
    }
 }
+class RegisterQuiz{
+   String titulo;
+   List<Pergunta> perguntas;
+   User admCriador;
+
+   RegisterQuiz(this.titulo, this.perguntas, this.admCriador);
+
+   Map<String, dynamic> toJson() {
+      return {
+         'titulo': titulo,
+         'perguntas': perguntas.map((pergunta) => pergunta.toJson()).toList(),
+         'admCriador': admCriador.toJson()
+      };
+   }
+}
 

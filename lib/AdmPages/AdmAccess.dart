@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:login_page/AlunoPages/AlunoAccess.dart';
 import 'Cursos.dart';
 import 'Perguntas.dart';
-import 'Quiz.dart';
+import 'QuizPage.dart';
 import 'Treinamentos.dart';
 import 'Usuarios.dart';
 import 'VagasEmprego.dart';
