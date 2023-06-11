@@ -19,4 +19,28 @@ class VagasEmprego {
     required this.faixaSalarial,
     required this.candidatos,
   });
+
+  factory VagasEmprego.fromJson(Map<String, dynamic> json) {
+    return VagasEmprego(
+      id: json['id'],
+      titulo: json['titulo'],
+      empresa: User.fromJson(json['empresa']),
+      atividades: json['atividades'],
+      treinamentoRequisito: Treinamento.fromJson(json['treinamentoRequisito']),
+      faixaSalarial: json['faixaSalarial'],
+      candidatos: (json['candidatos'] as List<dynamic>).map((e) => User.fromJson(e)).toList(),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'titulo': titulo,
+      'empresa': empresa.toJson(),
+      'atividades': atividades,
+      'treinamentoRequisito': treinamentoRequisito.toJson(),
+      'faixaSalarial': faixaSalarial,
+      'candidatos': candidatos.map((e) => e.toJson()).toList(),
+    };
+  }
 }

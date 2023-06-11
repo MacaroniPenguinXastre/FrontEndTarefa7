@@ -21,7 +21,7 @@ class Curso {
     required this.materialDidatico,
     required this.treinamentosCurso
   });
-  /*
+
   factory Curso.fromJson(Map<String, dynamic> json) {
     return Curso(
       id: json['id'],
@@ -32,7 +32,18 @@ class Curso {
       treinamentosCurso: List<Treinamento>.from(json['treinamentosCurso'].map((x) => Treinamento.fromJson(x))),
     );
   }
-*/
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'titulo': titulo,
+      'descricao': descricao,
+      'admCriador': admCriador.toJson(),
+      'materialDidatico': materialDidatico,
+      'treinamentosCurso': List<dynamic>.from(treinamentosCurso.map((x) => x.toJson())),
+    };
+  }
+
 }
 
 class RegisterCurso{
@@ -57,5 +68,14 @@ class RegisterCurso{
       'admCriador' : admCriador,
       'materialDidatico': materialDidatico
     };
+  }
+
+  factory RegisterCurso.fromJson(Map<String, dynamic> json) {
+    return RegisterCurso(
+      titulo: json['titulo'],
+      descricao: json['descricao'],
+      admCriador: User.fromJson(json['admCriador']),
+      materialDidatico: json['materialDidatico'],
+    );
   }
 }

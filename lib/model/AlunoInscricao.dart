@@ -23,4 +23,30 @@ class AlunoInscricao {
     required this.statusTreino,
     required this.dataInscricao,
   });
+
+  factory AlunoInscricao.fromJson(Map<String, dynamic> json) {
+    return AlunoInscricao(
+      id: json['id'],
+      aluno: User.fromJson(json['aluno']),
+      treinamento: Treinamento.fromJson(json['treinamento']),
+      quizIntroducao: Submissao.fromJson(json['quizIntroducao']),
+      caseOne: Submissao.fromJson(json['caseOne']),
+      caseTwo: Submissao.fromJson(json['caseTwo']),
+      statusTreino: statusTreinamentoFromJson(json['statusTreino']),
+      dataInscricao: DateTime.parse(json['dataInscricao']),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'aluno': aluno.toJson(),
+      'treinamento': treinamento.toJson(),
+      'quizIntroducao': quizIntroducao.toJson(),
+      'caseOne': caseOne.toJson(),
+      'caseTwo': caseTwo.toJson(),
+      'statusTreino': statusTreinamentoToJson(statusTreino),
+      'dataInscricao': dataInscricao.toIso8601String(),
+    };
+  }
 }

@@ -2,26 +2,54 @@ import 'package:login_page/model/User.dart';
 
 import 'Quiz.dart';
 
-class Pergunta{
+class Pergunta {
    int id;
    String enunciado;
    String alternativaA;
    String alternativaB;
    String alternativaC;
    String alternativaD;
-  //Dart não tem tipo char nativo
    String alternativaCorreta;
    User admCriador;
-   List<Quiz>quizAssociados;
+   List<Quiz> quizAssociados;
 
-  Pergunta(
-      this.id,
-      this.enunciado,
-      this.alternativaA,
-      this.alternativaB,
-      this.alternativaC,
-      this.alternativaD,
-      this.alternativaCorreta,
-      this.admCriador,
-      this.quizAssociados);
+   Pergunta(
+       this.id,
+       this.enunciado,
+       this.alternativaA,
+       this.alternativaB,
+       this.alternativaC,
+       this.alternativaD,
+       this.alternativaCorreta,
+       this.admCriador,
+       this.quizAssociados);
+
+   factory Pergunta.fromJson(Map<String, dynamic> json) {
+      return Pergunta(
+         json['id'],
+         json['enunciado'],
+         json['alternativaA'],
+         json['alternativaB'],
+         json['alternativaC'],
+         json['alternativaD'],
+         json['alternativaCorreta'],
+         User.fromJson(json['admCriador']),
+         List<Quiz>.from(
+             json['quizAssociados'].map((quiz) => Quiz.fromJson(quiz))),
+      );
+   }
+
+   Map<String, dynamic> toJson() {
+      return {
+         'id': id,
+         'enunciado': enunciado,
+         'alternativaA': alternativaA,
+         'alternativaB': alternativaB,
+         'alternativaC': alternativaC,
+         'alternativaD': alternativaD,
+         'alternativaCorreta': alternativaCorreta,
+         'admCriador': admCriador.toJson(),
+         'quizAssociados': quizAssociados.map((quiz) => quiz.toJson()).toList(),
+      };
+   }
 }
