@@ -14,7 +14,9 @@ import 'package:login_page/model/user.dart';
 import 'dart:core';
 
 import '../AlunoPages/AlunoAccess.dart';
+import '../Empresa_ParceiraPages/TodasAtividades.dart';
 import '../GeneralPage/UserDetails.dart';
+import '../MentorPages/ultimas10atividades.dart';
 
 class WidgetAndDestination {
   final List<Widget> widgets;
@@ -62,11 +64,19 @@ class HomePageState extends State<HomePage> {
             alunoDestinations
         );
         case 'EMPRESA_PARCEIRA':
+          List<Widget>empresaWidgets = [
+            UserDetailsPage(loggedUser: widget.loggedUser),
+            TodasAtividades(loggedUser: widget.loggedUser)
+          ];
         return WidgetAndDestination(
             empresaWidgets,
             empresaDestinations
         );
       case 'MENTOR':
+        List<Widget>mentorWidgets =[
+          Ultimas10Atividades(loggedUser: widget.loggedUser),
+          UserDetailsPage(loggedUser: widget.loggedUser)
+        ];
         return WidgetAndDestination(
             mentorWidgets,
             mentorDestinations
