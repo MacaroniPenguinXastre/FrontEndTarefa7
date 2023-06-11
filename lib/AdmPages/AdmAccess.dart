@@ -1,6 +1,7 @@
 import 'dart:core';
 
 import 'package:flutter/material.dart';
+import 'package:login_page/AlunoPages/AlunoAccess.dart';
 import 'Cursos.dart';
 import 'Perguntas.dart';
 import 'Quiz.dart';
@@ -35,12 +36,12 @@ List<NavigationRailDestination> destinationsAdm = [
   )
 ];
 
-List<Widget>admWidgets = const [
-  CursosTelaADM(),
-  TreinamentosTelaADM(),
-  UsuariosTelaADM(),
-  VagasTelaADM(),
-  PerguntasTelaADM(),
-  QuizTelaADM()
+List<Widget>admWidgets =[
+  CursosTelaADM(loggedUser: loggedUser),
+  TreinamentosTelaADM(loggedUser: loggedUser),
+  UsuariosTelaADM(loggedUser: loggedUser),
+  VagasTelaADM(loggedUser: loggedUser),
+  PerguntaScreenADM(loggedUser: loggedUser),
+  QuizTelaADM(loggedUser: loggedUser)
 ];
 

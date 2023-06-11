@@ -17,7 +17,7 @@ enum UserCargo{
 
 //Por questões de segurança, senha NÃO é armazenada.
 class User {
-   int? id;
+   int id;
    String cargo;
    String email;
    String nome;
@@ -36,6 +36,7 @@ class User {
 
    Map<String, dynamic> toJson() {
       return {
+         'id':id,
          'nome': nome,
          'email': email,
          'cargo': cargo

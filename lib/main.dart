@@ -1,11 +1,12 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:login_page/model/HomePage.dart';
+import 'package:login_page/GeneralPage/HomePage.dart';
 import 'package:http/http.dart' as http;
-import 'model/RegisterPage.dart';
-import 'model/user.dart';
+import 'package:login_page/model/Values.dart';
+import 'AdmPages/RegisterPage.dart';
+import 'GeneralPage/RegisterUser.dart';
+import 'model/User.dart';
 
 
 void main() {
@@ -48,7 +49,7 @@ class LoginPageState extends State<MainPage>{
 
     final userController = TextEditingController();
     final passwordController = TextEditingController();
-    final url = Uri.parse('http://localhost:8888/public/login');
+    final url = Uri.parse('$mainURL/public/login');
 
     return Scaffold(
       body: Container(
@@ -77,12 +78,12 @@ class LoginPageState extends State<MainPage>{
                     child: TextFormField(
                       controller: userController,
                       decoration: const InputDecoration(
-                          labelText: 'Usuário',
+                          labelText: 'Email',
                           border: OutlineInputBorder()
                       ),
                       validator: (user) {
                         if(user == null || user.isEmpty){
-                          return 'Digite um usuário';
+                          return 'Digite um email';
                         }
                         return null;
                       },
@@ -128,7 +129,6 @@ class LoginPageState extends State<MainPage>{
                             );
                           }
 
-
                           else {
                               error.setError("Usuário ou senha incorretos");
                             }
@@ -146,7 +146,7 @@ class LoginPageState extends State<MainPage>{
                     ),
                     TextButton(onPressed: (){
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => RegisterPage()
+                          MaterialPageRoute(builder: (context) => RegisterUserPage()
                           )
                       );
                     }, child: const Text('Cadastrar novo usuário'))

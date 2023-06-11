@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../model/User.dart';
+
 class VagasTelaADM extends StatelessWidget{
-  const VagasTelaADM({super.key});
+  final User loggedUser;
+  const VagasTelaADM({super.key, required this.loggedUser});
 
   @override
   Widget build(BuildContext context) {

@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../model/User.dart';
+
 class TreinamentosAlunoTela extends StatelessWidget{
-  const TreinamentosAlunoTela({Key? key}) : super(key: key);
+  final User loggedUser;
+
+  const TreinamentosAlunoTela({Key? key, required this.loggedUser}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +106,7 @@ class TreinamentosAlunoTela extends StatelessWidget{
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const OutraPagina(),
+                    builder: (context) => OutraPagina(loggedUser: loggedUser),
                   ),
                 );
               },
@@ -116,7 +120,8 @@ class TreinamentosAlunoTela extends StatelessWidget{
 }
 
 class OutraPagina extends StatelessWidget {
-  const OutraPagina({super.key});
+  final User loggedUser;
+  const OutraPagina({super.key, required this.loggedUser});
 
   @override
   Widget build(BuildContext context) {
