@@ -231,7 +231,7 @@ class IndexPerguntasPage extends StatefulWidget {
 
 class IndexPerguntasPageState extends State<IndexPerguntasPage> {
   List<Pergunta> perguntasList = [];
-  bool isConfirmedShowed = false;
+
 
   @override
   void initState() {
