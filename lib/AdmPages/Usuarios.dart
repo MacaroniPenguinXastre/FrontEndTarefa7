@@ -1,15 +1,16 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+import '../GeneralPage/UserDetails.dart';
 import '../model/User.dart';
 import '../model/Values.dart';
 import 'RegisterPage.dart';
 
-class UsuariosTelaADM extends StatelessWidget{
+
+class UsuariosTelaADM extends StatelessWidget {
   final User loggedUser;
-  const UsuariosTelaADM({super.key, required this.loggedUser});
+  const UsuariosTelaADM({Key? key, required this.loggedUser}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +44,7 @@ class UsuariosTelaADM extends StatelessWidget{
               ),
             ),
             const SizedBox(height: 16.0),
-            /*SizedBox(
+            SizedBox(
               width: 200.0,
               height: 60.0,
               child: ElevatedButton(
@@ -66,17 +67,13 @@ class UsuariosTelaADM extends StatelessWidget{
                   style: TextStyle(fontSize: 18.0),
                 ),
               ),
-            ),*/
+            ),
           ],
         ),
       ),
     );
   }
 }
-
-//TODO: Adapte a função abaixo para exibir todos os usuários (atualmente está para exibir cursos)
-//TODO: ADM não pode apagar usuários, arranca isso tbm
-/*
 
 class IndexUserPage extends StatefulWidget {
   final User loggedUser;
@@ -86,12 +83,9 @@ class IndexUserPage extends StatefulWidget {
   _IndexUserPageState createState() => _IndexUserPageState();
 }
 
-
 class _IndexUserPageState extends State<IndexUserPage> {
   List<User> userList = [];
   bool isConfirmedShowed = false;
-
-
 
   @override
   void initState() {
@@ -101,103 +95,27 @@ class _IndexUserPageState extends State<IndexUserPage> {
 
   void getUser() async {
     http.Response response = await http.get(
-        Uri.parse('$mainURL/adm/${widget.loggedUser.id}/cursos'),
-        headers: {'Content-Type': 'application/json'}
+      Uri.parse('$mainURL/adm/users'),
+      headers: {'Content-Type': 'application/json'},
     );
 
-    if(response.statusCode == 200){
+    if (response.statusCode == 200) {
       List<dynamic> jsonResponse = jsonDecode(utf8.decode(response.bodyBytes));
       setState(() {
         userList = jsonResponse.map((json) => User.fromJson(json)).toList();
       });
-
-    }
-    else{
+    } else {
       print('Erro: ${response.statusCode}');
     }
   }
 
-  void showConfirmationDialogUser(BuildContext context, User user) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Confirmar exclusão'),
-          content: Text('Deseja excluir o curso "${curso.titulo}"?'),
-          actions: [
-            ElevatedButton(
-              onPressed: () {
-                deleteCurso(context, curso.id,user);
-                Navigator.of(context).pop();
-              },
-              child: const Text('Confirmar'),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text('Cancelar'),
-            ),
-          ],
-        );
-      },
+  void showUserDetails(User user) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => UserDetailsPage(loggedUser: user), // Passa o usuário selecionado
+      ),
     );
-  }
-
-
-  void deleteCurso(BuildContext context,int id,User user) async{
-    String jsonUser = jsonEncode(user.toJson());
-    http.Response response = await http.delete(
-        Uri.parse('$mainURL/cursos/$id'),
-        headers: {'Content-Type': 'application/json'},
-        body: jsonUser);
-
-    try{
-      switch(response.statusCode){
-        case 200:
-          const snackBar = SnackBar(
-            content: Text('Curso excluído com sucesso.'),
-            duration: Duration(seconds: 2),
-          );
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-          setState(() {
-            getUser();
-          });
-          break;
-
-        case 403:
-          const snackBar = SnackBar(
-            content: Text('Curso não excluído: Usuário sem permissão.'),
-            duration: Duration(seconds: 2),
-          );
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-          break;
-
-        case 409:
-          const snackBar = SnackBar(
-            content: Text('Curso não excluído: Está associado a um ou mais treinamentos.'),
-            duration: Duration(seconds: 2),
-          );
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-          break;
-
-        default:
-          const snackBar = SnackBar(
-            content: Text('Erro de Requisição: Verifique se os parâmetros foram passados corretamente.'),
-            duration: Duration(seconds: 2),
-          );
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-          break;
-      }
-    }catch(e){
-      if(e is SocketException){
-        const snackBar = SnackBar(
-          content: Text('Erro de conexão: Verifique sua conexão com o sistema.'),
-          duration: Duration(seconds: 2),
-        );
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      }
-    }
   }
 
   @override
@@ -210,15 +128,15 @@ class _IndexUserPageState extends State<IndexUserPage> {
         itemCount: userList.length,
         shrinkWrap: true,
         itemBuilder: (BuildContext context, int index) {
-          Curso curso = userList[index];
+          User user = userList[index];
           return ListTile(
-            leading: Text('${curso.id}'),
-            title: Text(curso.titulo),
-            subtitle: Text(curso.descricao),
+            leading: Text('${user.id}'),
+            title: Text(user.nome),
+            subtitle: Text(user.cargo),
             trailing: IconButton(
-              icon: const Icon(Icons.clear_outlined),
-              onPressed: (){
-                showConfirmationDialogUser(context,curso,widget.loggedUser);
+              icon: const Icon(Icons.person),
+              onPressed: () {
+                showUserDetails(user); // Chama o método showUserDetails ao invés de Navigator.push
               },
             ),
           );
@@ -227,4 +145,3 @@ class _IndexUserPageState extends State<IndexUserPage> {
     );
   }
 }
-*/
