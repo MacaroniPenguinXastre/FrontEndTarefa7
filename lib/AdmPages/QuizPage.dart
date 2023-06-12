@@ -163,7 +163,6 @@ class _CreateQuizPageState extends State<CreateQuizPage> {
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
       }
     }
-
   }
 
   @override
@@ -243,7 +242,7 @@ class _CreateQuizPageState extends State<CreateQuizPage> {
 
 class TodosQuizzesPage extends StatefulWidget {
   final User loggedUser;
-  TodosQuizzesPage({Key? key, required this.loggedUser}) : super(key: key);
+  const TodosQuizzesPage({Key? key, required this.loggedUser}) : super(key: key);
 
   @override
   _TodosQuizzesPageState createState() => _TodosQuizzesPageState();
@@ -268,6 +267,7 @@ class _TodosQuizzesPageState extends State<TodosQuizzesPage> {
       print('Erro: ${response.statusCode}');
     }
   }
+
   @override
   void initState() {
     getQuizzes();
@@ -285,7 +285,6 @@ class _TodosQuizzesPageState extends State<TodosQuizzesPage> {
       shrinkWrap: true,
       itemBuilder: (BuildContext context, int index) {
         Quiz quiz = quizList[index];
-
         return ListTile(
           leading: Text('${quiz.id}'),
           title: Text(quiz.titulo),
