@@ -7,29 +7,19 @@ import 'dart:io';
 import '../main.dart';
 
 class RegisterUserPage extends StatelessWidget {
-  UserCargo? selectedCargo;
+
   final TextEditingController emailController = TextEditingController();
   final TextEditingController nomeController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final url = Uri.parse('$mainURL/public/register');
 
-  RegisterUserPage({Key? key});
-
-  List<DropdownMenuItem<UserCargo>> _buildCargoDropdownMenuItems() {
-    return UserCargo.values.map((UserCargo cargo) {
-      return DropdownMenuItem<UserCargo>(
-        value: cargo,
-        child: Text(cargo.toString()),
-      );
-    }).toList();
-  }
+  RegisterUserPage({super.key});
 
   void sendUser(BuildContext context) async {
     String email = emailController.text;
     String nome = nomeController.text;
     String password = passwordController.text;
-    String cargo = UserCargo.ALUNO.toString();
-    RegisterUser newUser = RegisterUser(nome, email, password, cargo);
+    RegisterUser newUser = RegisterUser(nome, email, password, UserCargo.ALUNO.toString().split('.').last);
 
     String jsonUser = jsonEncode(newUser.toJson());
 

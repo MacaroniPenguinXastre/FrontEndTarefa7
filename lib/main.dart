@@ -23,9 +23,13 @@ class MyApp extends StatelessWidget{
       title: "Login",
       //Define tema escuro
       theme: ThemeData(
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(
           brightness: Brightness.dark,
-          useMaterial3: true,
-          colorSchemeSeed: Colors.amberAccent
+          seedColor: Colors.amberAccent,
+
+        ),
+
       ),
       home: MainPage(),
     );
@@ -140,8 +144,8 @@ class LoginPageState extends State<MainPage>{
                     ValueListenableBuilder(
                         valueListenable: error.error,
                       builder: (context, String value,_) => Text(value,
-                      style: const TextStyle(
-                        color: Colors.red
+                      style: TextStyle(
+                        color: const ColorScheme.dark().error
                       ),),
                     ),
                     TextButton(onPressed: (){

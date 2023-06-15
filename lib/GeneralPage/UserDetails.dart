@@ -60,9 +60,9 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
               ),
             );
           } else if (snapshot.hasError) {
-            return Center(child: Text('Erro ao carregar os detalhes do usuário'));
+            return const Center(child: Text('Erro ao carregar os detalhes do usuário'));
           } else {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
         },
       ),

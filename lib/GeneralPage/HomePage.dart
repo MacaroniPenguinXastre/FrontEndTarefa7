@@ -97,10 +97,13 @@ class HomePageState extends State<HomePage> {
     final WidgetAndDestination widgetsAndDestination = getWidgetsForCargo();
     final List<Widget> _page = widgetsAndDestination.widgets;
     return Scaffold(
+
       appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.onInverseSurface,
         title: Text('Olá, ${widget.loggedUser.nome}'),
       ),
       body: Container(
+
         child: Row(
           children: [
             Expanded(
@@ -109,6 +112,7 @@ class HomePageState extends State<HomePage> {
                   children: [
                     Expanded(
                       child: NavigationRail(
+                        backgroundColor: Theme.of(context).colorScheme.onInverseSurface,
                         extended: true,
                         selectedIndex: selectedIndex,
                         onDestinationSelected: (int index) {
