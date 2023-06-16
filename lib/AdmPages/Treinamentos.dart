@@ -230,7 +230,6 @@ class _CriarTreinamentoPageState extends State<CriarTreinamentoPage> {
               sliverTextPadding('Selecione um Quiz para o teste de aptidão'),
               SliverFixedExtentList(
                   delegate: SliverChildBuilderDelegate(
-
                     childCount: quizList.length,
                     (BuildContext context,int index){
                       final quiz = quizList[index];
@@ -867,7 +866,7 @@ class _IndexTreinamentoPageState extends State<IndexTreinamentoPage> {
                       );
 
                       break;
-                    case 'details':
+                    case 'info':
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => TreinamentoDetalhesPage(treinamento: treino))
                       );
@@ -876,9 +875,29 @@ class _IndexTreinamentoPageState extends State<IndexTreinamentoPage> {
                 },
                 itemBuilder: (BuildContext context) {
                   return const[
-                    PopupMenuItem(value:'details',child: Icon(Icons.info_outline)),
-                    PopupMenuItem(value:'edit',child: Icon(Icons.edit)),
-                    PopupMenuItem(value:'delete',child: Icon(Icons.delete_outline))
+                    PopupMenuItem(value: 'info',
+                        child: Row(
+                            children: [
+                              Icon(Icons.info_outline),
+                              VerticalDivider(),
+                              Text('Detalhes')
+                            ]
+                        )
+                    ),
+                    PopupMenuItem(value: 'edit',
+                        child: Row(
+                            children: [
+                              Icon(Icons.edit),
+                              VerticalDivider(),
+                              Text('Editar')
+                            ]
+                        )),
+                    PopupMenuItem(value: 'delete',child:Row(
+                        children:[
+                          Icon(Icons.delete_outline),
+                          VerticalDivider(),
+                          Text('Delete')
+                        ]))
                   ];
                 },
               )

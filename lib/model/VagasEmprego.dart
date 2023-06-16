@@ -44,3 +44,41 @@ class VagasEmprego {
     };
   }
 }
+
+class RegisterVagasEmprego {
+  String titulo;
+  User empresa;
+  String atividades;
+  Treinamento treinamentoRequisito;
+  double faixaSalarial;
+
+  RegisterVagasEmprego({
+    required this.titulo,
+    required this.empresa,
+    required this.atividades,
+    required this.treinamentoRequisito,
+    required this.faixaSalarial,
+
+  });
+
+  factory RegisterVagasEmprego.fromJson(Map<String, dynamic> json) {
+    return RegisterVagasEmprego(
+      titulo: json['titulo'],
+      empresa: User.fromJson(json['empresa']),
+      atividades: json['atividades'],
+      treinamentoRequisito: Treinamento.fromJson(json['treinamentoRequisito']),
+      faixaSalarial: json['faixaSalarial'],
+
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'titulo': titulo,
+      'empresa': empresa.toJson(),
+      'atividades': atividades,
+      'treinamentoRequisito': treinamentoRequisito.toJson(),
+      'faixaSalarial': faixaSalarial,
+    };
+  }
+}

@@ -110,29 +110,3 @@ SliverPadding sliverTextPadding(String labelText){
     ),
   );
 }
-
-
-
-PopupMenuButton crudButtonMenu(){
-  return PopupMenuButton(
-    itemBuilder: (BuildContext context) {
-      return const[
-        PopupMenuItem(value: 'info', child: Icon(Icons.info_outline)),
-        PopupMenuItem(value: 'edit', child: Icon(Icons.edit)),
-        PopupMenuItem(value: 'delete',child: Icon(Icons.delete_outline))
-      ];
-    },
-  );
-}
-/*
-    cargaHorariaTotalController.text = treinamento.cargaHorariaTotal.toString();
-    nomeComercialController.text = treinamento.nomeComercial;
-    descricaoController.text = treinamento.descricao;
-    dataInicioInscricaoController.text = super.dateFormat.format(treinamento.dataInicioInscricao);
-    dataFimInscricaoController.text = super.dateFormat.format(treinamento.dataFimInscricao);
-    dataInicioTreinamentoController.text = super.dateFormat.format(treinamento.dataInicioTreinamento);
-    dataFimTreinamentoController.text = super.dateFormat.format(treinamento.dataFimTreinamento);
-    quantidadeMinimaController.text = treinamento.quantidadeMinima.toString();
-    quantidadeMaximaController.text = treinamento.quantidadeMaxima.toString();
-    labelButton = 'Salvar Alterações';
- */
