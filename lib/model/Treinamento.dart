@@ -1,7 +1,12 @@
+import 'dart:convert';
+import 'dart:io';
+import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-
+import 'package:flutter/material.dart';
 import 'Curso.dart';
 import 'Quiz.dart';
+import 'User.dart';
+import 'Values.dart';
 
 class Treinamento {
   int id;
@@ -79,7 +84,11 @@ class Treinamento {
       'segundoCase': segundoCase.toJson(),
     };
   }
+
+
 }
+
+
 
 class RegisterTreinamento {
   int cargaHorariaTotal;
@@ -153,3 +162,4 @@ class RegisterTreinamento {
     };
   }
 }
+

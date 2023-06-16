@@ -138,126 +138,128 @@ class CriarPerguntaPageState extends State<CriarPerguntaPage>{
       appBar: AppBar(
         title: const Text('Criar pergunta'),
       ),
-      body: Form(
-        key: _formKey,
-        child: ListView(
-            children:[
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  children: [
-                    TextFormField(
-                      validator: (value){
-                        if(value == null || value.isEmpty){
-                          return 'Insira um enunciado';
+      body: SafeArea(
+        child: Form(
+          key: _formKey,
+          child: ListView(
+              children:[
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        validator: (value){
+                          if(value == null || value.isEmpty){
+                            return 'Insira um enunciado';
+                          }
+                          return null;
+                        },
+                        controller: enunciadoController,
+                        decoration: const InputDecoration(
+                          labelText: 'Enunciado',
+                          border: OutlineInputBorder(),
+                        ),
+                      ),
+                      const SizedBox(height: 16.0),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextFormField(
+                          validator: (value){
+                            if(value == null || value.isEmpty){
+                              return 'Insira um texto para alternativa A';
+                            }
+                            return null;
+                          },
+                          maxLines: null,
+                          controller: alternativaAController,
+                          decoration: const InputDecoration(
+                            labelText: 'Alternativa A',
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 16.0),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextFormField(
+                          validator: (value){
+                            if(value == null || value.isEmpty){
+                              return 'Insira um texto para alternativa A';
+                            }
+                            return null;
+                          },
+                          controller: alternativaBController,
+                          maxLines: null,
+                          decoration: const InputDecoration(
+                            labelText: 'Alternativa B',
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 16.0),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextFormField(
+                          validator: (value){
+                            if(value == null || value.isEmpty){
+                              return 'Insira um texto para alternativa A';
+                            }
+                            return null;
+                          },
+                          controller: alternativaCController,
+                          maxLines: null,
+                          decoration: const InputDecoration(
+                            labelText: 'Alternativa C',
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 16.0),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextFormField(
+                          validator: (value){
+                            if(value == null || value.isEmpty){
+                              return 'Insira um texto para alternativa A';
+                            }
+                            return null;
+                          },
+                          controller: alternativaDController,
+                          maxLines: null,
+                          decoration: const InputDecoration(
+                            labelText: 'Alternativa D',
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 16.0),
+                      DropdownButton<String>(
+                    value: alternativaCorretaSelected,
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        alternativaCorretaSelected = newValue!;
+                      });
+                    },
+                    items: <String>['A', 'B', 'C', 'D'].map((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
+                      TextButton(
+                          child: const Text('Cadastrar Pergunta'),
+                          onPressed:(){
+                            if(_formKey.currentState!.validate()){
+                            sendPergunta(context);
                         }
-                        return null;
-                      },
-                      controller: enunciadoController,
-                      decoration: const InputDecoration(
-                        labelText: 'Enunciado',
-                        border: OutlineInputBorder(),
-                      ),
-                    ),
-                    const SizedBox(height: 16.0),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextFormField(
-                        validator: (value){
-                          if(value == null || value.isEmpty){
-                            return 'Insira um texto para alternativa A';
-                          }
-                          return null;
-                        },
-                        maxLines: null,
-                        controller: alternativaAController,
-                        decoration: const InputDecoration(
-                          labelText: 'Alternativa A',
-                          border: OutlineInputBorder(),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 16.0),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextFormField(
-                        validator: (value){
-                          if(value == null || value.isEmpty){
-                            return 'Insira um texto para alternativa A';
-                          }
-                          return null;
-                        },
-                        controller: alternativaBController,
-                        maxLines: null,
-                        decoration: const InputDecoration(
-                          labelText: 'Alternativa B',
-                          border: OutlineInputBorder(),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 16.0),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextFormField(
-                        validator: (value){
-                          if(value == null || value.isEmpty){
-                            return 'Insira um texto para alternativa A';
-                          }
-                          return null;
-                        },
-                        controller: alternativaCController,
-                        maxLines: null,
-                        decoration: const InputDecoration(
-                          labelText: 'Alternativa C',
-                          border: OutlineInputBorder(),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 16.0),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextFormField(
-                        validator: (value){
-                          if(value == null || value.isEmpty){
-                            return 'Insira um texto para alternativa A';
-                          }
-                          return null;
-                        },
-                        controller: alternativaDController,
-                        maxLines: null,
-                        decoration: const InputDecoration(
-                          labelText: 'Alternativa D',
-                          border: OutlineInputBorder(),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 16.0),
-                    DropdownButton<String>(
-                  value: alternativaCorretaSelected,
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      alternativaCorretaSelected = newValue!;
-                    });
-                  },
-                  items: <String>['A', 'B', 'C', 'D'].map((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                ),
-                    TextButton(
-                        child: const Text('Cadastrar Pergunta'),
-                        onPressed:(){
-                          if(_formKey.currentState!.validate()){
-                          sendPergunta(context);
                       }
-                    }
-                    )
-                  ],
+                      )
+                    ],
+                  ),
                 ),
-              ),
-            ]
+              ]
+          ),
         ),
       ),
     );
@@ -274,7 +276,6 @@ class IndexPerguntasPage extends StatefulWidget {
 
 class IndexPerguntasPageState extends State<IndexPerguntasPage> {
   List<Pergunta> perguntasList = [];
-
 
   @override
   void initState() {
@@ -326,7 +327,6 @@ class IndexPerguntasPageState extends State<IndexPerguntasPage> {
       },
     );
   }
-
 
   void deletePergunta(BuildContext context,int perguntaID) async{
     http.Response response = await http.delete(
@@ -408,4 +408,3 @@ class IndexPerguntasPageState extends State<IndexPerguntasPage> {
     );
   }
 }
-

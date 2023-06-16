@@ -12,6 +12,7 @@ import 'VagasEmprego.dart';
 List<NavigationRailDestination> destinationsAdm = [
   const NavigationRailDestination(
     icon: Icon(Icons.class_outlined),
+    selectedIcon: Icon(Icons.class_rounded),
     label: Text('Cursos'),
   ),
   const NavigationRailDestination(

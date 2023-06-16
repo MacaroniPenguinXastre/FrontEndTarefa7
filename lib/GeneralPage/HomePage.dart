@@ -97,37 +97,25 @@ class HomePageState extends State<HomePage> {
     final WidgetAndDestination widgetsAndDestination = getWidgetsForCargo();
     final List<Widget> _page = widgetsAndDestination.widgets;
     return Scaffold(
-
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.onInverseSurface,
-        title: Text('Olá, ${widget.loggedUser.nome}'),
-      ),
-      body: Container(
-
+      body: SafeArea(
         child: Row(
           children: [
-            Expanded(
-              child: Container(
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: NavigationRail(
-                        backgroundColor: Theme.of(context).colorScheme.onInverseSurface,
-                        extended: true,
-                        selectedIndex: selectedIndex,
-                        onDestinationSelected: (int index) {
-                          setState(() {
-                            selectedIndex = index;
-                          });
-                        },
-                        destinations: widgetsAndDestination.destinations,
-                      ),
-                    )
-                  ],
-                ),
-              ),
+            NavigationRail(
+              elevation: 4,
+              groupAlignment: 0.0,
+              selectedIndex: selectedIndex,
+              useIndicator: true,
+              labelType: NavigationRailLabelType.all,
+              onDestinationSelected: (int index) {
+                setState(() {
+                  selectedIndex = index;
+                });
+              },
+              destinations: widgetsAndDestination.destinations,
             ),
+            const VerticalDivider(thickness: 1, width: 1),
             Expanded(
+
               flex: 4,
               child: IndexedStack(
                 index: selectedIndex,
