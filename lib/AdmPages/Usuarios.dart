@@ -122,7 +122,7 @@ class _IndexUserPageState extends State<IndexUserPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Todos os Cursos'),
+        title: const Text('Todos os Usuários'),
       ),
       body: ListView.builder(
         itemCount: userList.length,
