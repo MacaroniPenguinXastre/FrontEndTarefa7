@@ -521,7 +521,6 @@ class EditarVagasEmpregoPageState extends State<EditarVagasEmpregoPage>{
       print('Erro: ${response.statusCode}');
     }
   }
-
   void getParceiros() async {
     http.Response response = await http.get(
       Uri.parse('$mainURL/users/parceiros/vagas'),
