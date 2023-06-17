@@ -15,9 +15,6 @@ import 'package:login_page/model/Values.dart';
     @override
     Widget build(BuildContext context) {
       return Scaffold(
-        appBar: AppBar(
-          title: const Text('Página Inicial'),
-        ),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

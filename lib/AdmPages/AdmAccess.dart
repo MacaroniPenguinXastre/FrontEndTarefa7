@@ -7,7 +7,7 @@ import 'Perguntas.dart';
 import 'QuizPage.dart';
 import 'Treinamentos.dart';
 import 'Usuarios.dart';
-import 'VagasEmprego.dart';
+import 'VagasEmpregoAdm.dart';
 
 List<NavigationRailDestination> destinationsAdm = [
   const NavigationRailDestination(

@@ -27,6 +27,32 @@ TextFormField defaultTextFormField(TextEditingController textEditingController,S
     },
   );
 }
+
+TextFormField defaultDecimalFormField(TextEditingController textEditingController,String label){
+  return TextFormField(
+    keyboardType: const TextInputType.numberWithOptions(decimal: true),
+    inputFormatters: [
+      FilteringTextInputFormatter.allow(RegExp(r"[0-9.]")),
+      TextInputFormatter.withFunction((oldValue, newValue) {
+        try {
+          final text = newValue.text;
+          if (text.isNotEmpty) double.parse(text);
+          return newValue;
+        } catch (e) {}
+        return oldValue;
+      }),
+    ],
+    controller: textEditingController,
+    decoration: inputDefaultDecoration(label),
+    validator: (value){
+      if(value == null || value.isEmpty){
+        return 'Campo vazio';
+      }
+      return null;
+    },
+  );
+}
+
 TextFormField defaultNumberFormField(TextEditingController textEditingController,String label){
   return TextFormField(
     inputFormatters: <TextInputFormatter>[
@@ -106,6 +132,19 @@ SliverPadding sliverTextPadding(String labelText){
     sliver: SliverToBoxAdapter(
       child: Center(
         child: Text(labelText),
+      ),
+    ),
+  );
+}
+
+SliverPadding sliverTextCardPadding(String labelText){
+  return SliverPadding(
+    padding: const EdgeInsets.all(10),
+    sliver: SliverToBoxAdapter(
+      child: Center(
+        child: Card(
+            child: Text(labelText)
+        ),
       ),
     ),
   );

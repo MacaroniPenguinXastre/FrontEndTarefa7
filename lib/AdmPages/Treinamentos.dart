@@ -18,9 +18,6 @@ class TreinamentosTelaADM extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Página Inicial'),
-      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -842,7 +839,7 @@ class _IndexTreinamentoPageState extends State<IndexTreinamentoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Editar Treinamento'),
+        title: const Text(''),
       ),
       body: ListView.builder(
         itemCount: treinoList.length,

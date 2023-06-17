@@ -7,7 +7,7 @@ import 'package:login_page/AdmPages/Perguntas.dart';
 import 'package:login_page/AdmPages/QuizPage.dart';
 import 'package:login_page/AdmPages/Treinamentos.dart';
 import 'package:login_page/AdmPages/Usuarios.dart';
-import 'package:login_page/AdmPages/VagasEmprego.dart';
+import 'package:login_page/AdmPages/VagasEmpregoAdm.dart';
 import 'package:login_page/AlunoPages/SeusTreinamentos.dart';
 import 'package:login_page/AlunoPages/VagaEmpregoAluno.dart';
 import 'package:login_page/model/User.dart';
