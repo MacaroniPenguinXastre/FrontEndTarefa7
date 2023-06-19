@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget{
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
           brightness: Brightness.dark,
-          seedColor: Colors.amberAccent,
+          seedColor: Colors.lightGreenAccent,
 
         ),
 
@@ -76,7 +76,7 @@ class LoginPageState extends State<MainPage>{
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text('Se logue'),
+                  const Text('Login'),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20.0),
                     child: TextFormField(
