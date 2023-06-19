@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
 import 'dart:io';
 
 import 'package:intl/intl.dart';
-const mainURL = 'http://localhost:8888';
+const mainURL = 'https://a86a-2804-14c-487-1bd2-00-1b95.ngrok-free.app';
 
 InputDecoration inputDefaultDecoration(String label){
   return InputDecoration(
@@ -116,6 +115,18 @@ SliverPadding sliverDivider(){
   );
 }
 
+SliverPadding sliverPaddingFloatButton(FloatingActionButton floatingActionButton){
+  return SliverPadding(
+      padding: const EdgeInsets.all(10),
+      sliver: SliverToBoxAdapter(
+        child: SizedBox(
+          width: 300,
+            child: floatingActionButton
+        ),
+      )
+  );
+}
+
 SliverPadding sliverPaddingFormField(TextFormField textFormField){
   return SliverPadding(
     padding: const EdgeInsets.all(10),
@@ -125,6 +136,17 @@ SliverPadding sliverPaddingFormField(TextFormField textFormField){
   );
 }
 
+SliverPadding sliverTextPaddingWithStyle(String labelText,TextStyle textStyle){
+  return SliverPadding(
+    padding: const EdgeInsets.all(10),
+    sliver: SliverToBoxAdapter(
+      child: Center(
+        child: Text(labelText,
+            style: textStyle.copyWith(letterSpacing: 1.0)),
+      ),
+    ),
+  );
+}
 
 SliverPadding sliverTextPadding(String labelText){
   return SliverPadding(

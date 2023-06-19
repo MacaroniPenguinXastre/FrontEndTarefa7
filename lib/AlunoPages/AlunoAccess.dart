@@ -2,6 +2,7 @@ import 'dart:core';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:login_page/AlunoPages/Inscricoes.dart';
 import 'package:login_page/AlunoPages/SeusTreinamentos.dart';
 import 'package:login_page/GeneralPage/UserDetails.dart';
 
@@ -26,7 +27,7 @@ List<NavigationRailDestination> alunoDestinations = [
 ];
 
 List<Widget>alunoWidgets = [
-  TreinamentosAlunoTela(loggedUser: loggedUser),
+  InscricoesAlunoPage(aluno: loggedUser),
   UserDetailsPage(loggedUser: loggedUser),
   VagaEmpregoAlunoTela(loggedUser: loggedUser)
 ];

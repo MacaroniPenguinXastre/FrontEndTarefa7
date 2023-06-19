@@ -14,6 +14,7 @@ import 'package:login_page/model/User.dart';
 import 'dart:core';
 
 import '../AlunoPages/AlunoAccess.dart';
+import '../AlunoPages/Inscricoes.dart';
 import '../Empresa_ParceiraPages/TodasAtividades.dart';
 import 'UserDetails.dart';
 import '../MentorPages/ultimas10atividades.dart';
@@ -55,7 +56,7 @@ class HomePageState extends State<HomePage> {
         );
       case 'ALUNO':
         List<Widget>alunoWidgets = [
-          TreinamentosAlunoTela(loggedUser: widget.loggedUser),
+          InscricoesAlunoPage(aluno: widget.loggedUser),
           UserDetailsPage(loggedUser: widget.loggedUser),
           VagaEmpregoAlunoTela(loggedUser: widget.loggedUser)
         ];
@@ -106,6 +107,9 @@ class HomePageState extends State<HomePage> {
               selectedIndex: selectedIndex,
               useIndicator: true,
               labelType: NavigationRailLabelType.all,
+              leading: FloatingActionButton(onPressed: () =>Navigator.of(context).pop(),
+              child: const Icon(Icons.exit_to_app_outlined),
+              ),
               onDestinationSelected: (int index) {
                 setState(() {
                   selectedIndex = index;

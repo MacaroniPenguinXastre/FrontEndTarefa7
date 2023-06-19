@@ -1,10 +1,5 @@
 enum StatusTreinamento {
-  ANDAMENTO,
-  CONCLUIDO,
-  INSCRITO,
-  CANCELADO,
-  INCOMPLETO,
-  REPROVADO
+  ANDAMENTO,CONCLUIDO,INSCRITO,CANCELADO,INCOMPLETO,REPROVADO
 }
 
 StatusTreinamento statusTreinamentoFromJson(String value) {

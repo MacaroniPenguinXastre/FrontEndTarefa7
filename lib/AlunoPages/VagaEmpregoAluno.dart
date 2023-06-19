@@ -2,8 +2,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:login_page/AlunoPages/AlunoAccess.dart';
+import 'package:login_page/model/Treinamento.dart';
 
 import '../model/User.dart';
+import '../model/Values.dart';
 
 class VagaEmpregoAlunoTela extends StatefulWidget {
   final User loggedUser;
@@ -15,31 +17,18 @@ class VagaEmpregoAlunoTela extends StatefulWidget {
 
 class _VagaEmpregoAlunoTelaState extends State<VagaEmpregoAlunoTela> {
   String? selectedOption;
-  List<String> treinamentos = [];
+  List<Treinamento> treinamentoList = [];
 
   @override
   void initState() {
+    getTreinamentos();
     super.initState();
-    fetchTreinamentos();
   }
 
-  Future<void> fetchTreinamentos() async {
-    try {
-      final response = await http.get(Uri.parse('https://456c-2804-14c-487-1bd2-00-1b95.ngrok-free.app/treinamentos/available'));
+  void getTreinamentos()async{
+    final Uri URL = Uri.parse('$mainURL/treinamentos/available');
 
-      if (response.statusCode == 200) {
-        final List<dynamic> data = jsonDecode(response.body);
-        print('$data');
 
-        setState(() {
-          treinamentos = List<String>.from(data);
-        });
-      } else {
-        print('Erro na requisição: ${response.statusCode}');
-      }
-    } catch (e) {
-      print('Erro: $e');
-    }
   }
 
   @override
@@ -53,22 +42,6 @@ class _VagaEmpregoAlunoTelaState extends State<VagaEmpregoAlunoTela> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            DropdownButton<String>(
-              value: selectedOption,
-              items: treinamentos.map((treinamento) {
-                return DropdownMenuItem<String>(
-                  value: treinamento,
-                  child: Text(treinamento),
-                );
-              }).toList(),
-              onChanged: (String? value) {
-                setState(() {
-                  selectedOption = value;
-                });
-              },
-              hint: const Text('Selecione um treinamento'),
-              isExpanded: true,
-            ),
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
