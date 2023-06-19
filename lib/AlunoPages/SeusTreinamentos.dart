@@ -147,22 +147,27 @@ class _TreinamentoDetalhesAlunoPageState extends State<TreinamentoDetalhesAlunoP
           headers: {'Content-Type': 'application/json'}
       );
 
-      print(response.statusCode);
       switch(response.statusCode){
         case 200:
           if(willSubscribe == true){
-            const snackBar = SnackBar(
-              content: Text('Inscrição realizada com sucesso!'),
-              duration: Duration(seconds: 2),
-            );
-            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            setState(() {
+              const snackBar = SnackBar(
+                content: Text('Inscrição realizada com sucesso!'),
+                duration: Duration(seconds: 2),
+              );
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              initState();
+            });
           }
           else{
-            const snackBar = SnackBar(
-              content: Text('Inscrição cancelada com sucesso!'),
-              duration: Duration(seconds: 2),
-            );
-            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            setState(() {
+              const snackBar = SnackBar(
+                content: Text('Inscrição cancelada com sucesso!'),
+                duration: Duration(seconds: 2),
+              );
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              initState();
+            });
           }
         break;
         case 409:
