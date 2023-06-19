@@ -80,17 +80,15 @@ class _InscricoesAlunoPageState extends State<InscricoesAlunoPage> {
                 label: const Text('Listar treinamentos'),
               ),
               const Spacer(),
-              Text(
+              const Text(
                 'Suas inscrições',
                 softWrap: true,
-                style: textTheme.headline4!,
               ),
               Expanded(
                 child: inscricaoList.isEmpty
-                    ? Text(
+                    ? const Text(
                   'Você não está cadastrado em nenhum treinamento',
                   softWrap: true,
-                  style: textTheme.headline6!,
                 )
                     : ListView.separated(
                   itemBuilder: (BuildContext context, int index) {
@@ -193,12 +191,7 @@ class AlunoInscricaoDetalhesAlunoPage extends StatelessWidget {
                     const SizedBox(height: 16.0),
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => RealizarTestePage(),
-                          ),
-                        );
+
                       },
                       child: const Text('Realizar Teste de Aptidão'),
                     ),
@@ -206,21 +199,19 @@ class AlunoInscricaoDetalhesAlunoPage extends StatelessWidget {
                 ),
               ),
             ),
-            SliverPadding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            const SliverPadding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
               sliver: SliverToBoxAdapter(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(height: 16.0),
+                    SizedBox(height: 16.0),
                     Text(
-                      'Cursos',
-                      style: textTheme.headline6,
+                      'Cursos'
                     ),
-                    const SizedBox(height: 8.0),
+                    SizedBox(height: 8.0),
                     Text(
-                      'Fase introdutória',
-                      style: textTheme.subtitle1,
+                      'Fase introdutória'
                     ),
                   ],
                 ),
@@ -242,12 +233,10 @@ class AlunoInscricaoDetalhesAlunoPage extends StatelessWidget {
                         title: Text(
                           cursoFaseIntrodutoria.titulo,
                           softWrap: true,
-                          style: textTheme.subtitle1,
                         ),
                         subtitle: Text(
                           cursoFaseIntrodutoria.descricao,
                           softWrap: true,
-                          style: textTheme.bodyText1,
                         ),
                       ),
                     ),
@@ -257,12 +246,11 @@ class AlunoInscricaoDetalhesAlunoPage extends StatelessWidget {
               ),
               itemExtent: 100.0,
             ),
-            SliverPadding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            const SliverPadding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
               sliver: SliverToBoxAdapter(
                 child: Text(
                   'Fase avançada',
-                  style: textTheme.subtitle1,
                 ),
               ),
             ),
@@ -282,12 +270,10 @@ class AlunoInscricaoDetalhesAlunoPage extends StatelessWidget {
                         title: Text(
                           cursoFaseAvancada.titulo,
                           softWrap: true,
-                          style: textTheme.subtitle1,
                         ),
                         subtitle: Text(
                           cursoFaseAvancada.descricao,
                           softWrap: true,
-                          style: textTheme.bodyText1,
                         ),
                       ),
                     ),
@@ -305,11 +291,25 @@ class AlunoInscricaoDetalhesAlunoPage extends StatelessWidget {
 }
 
 class RealizarTestePage extends StatelessWidget {
+  final StatusTreinamento statusTreinamento;
+
+  const RealizarTestePage({Key? key, required this.statusTreinamento}) : super(key: key);
+
+  void iniciarTeste(BuildContext context) {
+    if (statusTreinamento == StatusTreinamento.REPROVADO) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Você não foi aprovado para realizar o Treinamento.'),
+        ),
+      );
+    } else {
+      // Código para iniciar o teste
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context)
-        .textTheme
-        .apply(displayColor: Theme.of(context).colorScheme.onSurface);
+    final textTheme = Theme.of(context).textTheme.apply(displayColor: Theme.of(context).colorScheme.onSurface);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Realizar Teste de Aptidão'),
@@ -325,7 +325,9 @@ class RealizarTestePage extends StatelessWidget {
               ),
               const SizedBox(height: 16.0),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  iniciarTeste(context);
+                },
                 child: const Text('Iniciar Teste'),
               ),
             ],
