@@ -7,7 +7,7 @@ class RealizarTestePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Realizar Teste de Aptidão'),
+        title: const Text('Página de Teste de Aptidão'),
       ),
       body: SafeArea(
         child: Center(

@@ -178,7 +178,6 @@ class AlunoInscricaoDetalhesAlunoPage extends StatelessWidget {
                   children: [
                     Text(
                       alunoInscricao.treinamento.nomeComercial,
-                      style: textTheme.headline6,
                     ),
                     const SizedBox(height: 16.0),
                     const Text(
@@ -191,7 +190,7 @@ class AlunoInscricaoDetalhesAlunoPage extends StatelessWidget {
                     const SizedBox(height: 16.0),
                     ElevatedButton(
                       onPressed: () {
-
+                        // Ação do botão "Realizar Teste de Aptidão"
                       },
                       child: const Text('Realizar Teste de Aptidão'),
                     ),
@@ -206,13 +205,9 @@ class AlunoInscricaoDetalhesAlunoPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 16.0),
-                    Text(
-                      'Cursos'
-                    ),
+                    Text('Cursos'),
                     SizedBox(height: 8.0),
-                    Text(
-                      'Fase introdutória'
-                    ),
+                    Text('Fase introdutória'),
                   ],
                 ),
               ),
@@ -249,9 +244,7 @@ class AlunoInscricaoDetalhesAlunoPage extends StatelessWidget {
             const SliverPadding(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               sliver: SliverToBoxAdapter(
-                child: Text(
-                  'Fase avançada',
-                ),
+                child: Text('Fase avançada'),
               ),
             ),
             SliverFixedExtentList(
@@ -283,12 +276,57 @@ class AlunoInscricaoDetalhesAlunoPage extends StatelessWidget {
               ),
               itemExtent: 100.0,
             ),
+            SliverPadding(
+              padding: const EdgeInsets.all(16.0),
+              sliver: SliverToBoxAdapter(
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DentroTreinamento(cursos: alunoInscricao.treinamento.faseIntrodutorio),
+                      ),
+                    );
+                  },
+                  child: const Text('Realizar o Treinamento'),
+                ),
+              ),
+            ),
           ],
         ),
       ),
     );
   }
 }
+
+class DentroTreinamento extends StatelessWidget {
+  final List<Curso> cursos;
+
+  const DentroTreinamento({Key? key, required this.cursos}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Dentro do Treinamento'),
+      ),
+      body: ListView.builder(
+        itemCount: cursos.length,
+        itemBuilder: (context, index) {
+          Curso curso = cursos[index];
+          return Card(
+            child: ListTile(
+              title: Text(curso.titulo),
+              subtitle: Text(curso.materialDidatico),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+
 
 class RealizarTestePage extends StatelessWidget {
   final StatusTreinamento statusTreinamento;

@@ -9,6 +9,7 @@ import '../model/User.dart';
 import '../model/Values.dart';
 import 'package:intl/intl.dart';
 
+
 class TreinamentosTelaADM extends StatelessWidget {
   final User loggedUser;
   const TreinamentosTelaADM({Key? key, required this.loggedUser}) : super(key: key);
@@ -907,7 +908,8 @@ class _IndexTreinamentoPageState extends State<IndexTreinamentoPage> {
 class TreinamentoDetalhesPage extends StatelessWidget {
   final Treinamento treinamento;
 
-  const TreinamentoDetalhesPage({super.key,required this.treinamento});
+  const TreinamentoDetalhesPage({Key? key, required this.treinamento})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -915,22 +917,87 @@ class TreinamentoDetalhesPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Detalhes do Treinamento'),
       ),
-      body: SafeArea(
-        child: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Card(
-                  elevation: 4,
-                  shadowColor: Theme.of(context).shadowColor,
-                  child: Text('Id do treinamento: ${treinamento.id}'),
-                )
-              ],
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: SingleChildScrollView(
+          child: Card(
+            elevation: 4,
+            shadowColor: Theme.of(context).shadowColor,
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildDetailRow('Id do treinamento', '${treinamento.id}'),
+                  const SizedBox(height: 16),
+                  Divider(),
+                  const SizedBox(height: 16),
+                  _buildDetailRow('Carga Horária Total', '${treinamento.cargaHorariaTotal}'),
+                  const SizedBox(height: 16),
+                  Divider(),
+                  const SizedBox(height: 16),
+                  _buildDetailRow('Nome Comercial', '${treinamento.nomeComercial}'),
+                  const SizedBox(height: 16),
+                  Divider(),
+                  const SizedBox(height: 16),
+                  _buildDetailRow('Descrição', '${treinamento.descricao}'),
+                  const SizedBox(height: 16),
+                  Divider(),
+                  const SizedBox(height: 16),
+                  _buildDetailRow('Data de Início das Inscrições', '${treinamento.dataInicioInscricao}'),
+                  const SizedBox(height: 16),
+                  Divider(),
+                  const SizedBox(height: 16),
+                  _buildDetailRow('Data de Fim das Inscrições', '${treinamento.dataFimInscricao}'),
+                  const SizedBox(height: 16),
+                  Divider(),
+                  const SizedBox(height: 16),
+                  _buildDetailRow('Data de Início do Treinamento', '${treinamento.dataInicioTreinamento}'),
+                  const SizedBox(height: 16),
+                  Divider(),
+                  const SizedBox(height: 16),
+                  _buildDetailRow('Data de Fim do Treinamento', '${treinamento.dataFimTreinamento}'),
+                  const SizedBox(height: 16),
+                  Divider(),
+                  const SizedBox(height: 16),
+                  _buildDetailRow('Quantidade Mínima', '${treinamento.quantidadeMinima}'),
+                  const SizedBox(height: 16),
+                  Divider(),
+                  const SizedBox(height: 16),
+                  _buildDetailRow('Quantidade Máxima', '${treinamento.quantidadeMaxima}'),
+                  // Adicione outros detalhes do treinamento, se necessário
+                ],
+              ),
             ),
-          )
-        )
-      )
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDetailRow(String label, String value) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+            color: Colors.white,
+          ),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          value,
+          style: TextStyle(
+            fontSize: 16,
+            color: Colors.white,
+          ),
+        ),
+      ],
     );
   }
 }
+
 
