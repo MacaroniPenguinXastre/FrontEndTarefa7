@@ -488,6 +488,7 @@ class _EditarTreinamentoPageState extends State<EditarTreinamentoPage>{
       }
     }
   }
+
   void getQuizzes() async {
     http.Response response = await http.get(
         Uri.parse('$mainURL/adm/${widget.loggedUser.id}/quizzes'),
@@ -504,6 +505,7 @@ class _EditarTreinamentoPageState extends State<EditarTreinamentoPage>{
       print('Erro: ${response.statusCode}');
     }
   }
+
   void getCursos() async {
     http.Response response = await http.get(
         Uri.parse('$mainURL/adm/${widget.loggedUser.id}/cursos'),
@@ -555,13 +557,11 @@ class _EditarTreinamentoPageState extends State<EditarTreinamentoPage>{
           key: _formKey,
           child: CustomScrollView(
             slivers: [
-
               sliverPaddingFormField(defaultTextFormField(nomeComercialController,'Nome Comercial')),
               sliverPaddingFormField(defaultTextFormField(descricaoController,'Descrição')),
               sliverPaddingFormField(defaultNumberFormField(cargaHorariaTotalController,'Carga Horária (em Horas)')),
               sliverPaddingFormField(defaultNumberFormField(quantidadeMinimaController,'Quantidade Mínima de Inscritos')),
               sliverPaddingFormField(defaultNumberFormField(quantidadeMaximaController,'Quantidade Máxima de Inscritos')),
-
               sliverTextPadding('Selecione um Quiz para o teste de aptidão'),
               SliverFixedExtentList(
                   delegate: SliverChildBuilderDelegate(

@@ -370,7 +370,8 @@ class IndexPerguntasPageState extends State<IndexPerguntasPage> {
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
           break;
       }
-    }catch(e){
+    }
+    catch(e){
       if(e is SocketException){
         const snackBar = SnackBar(
           content: Text('Erro de conexão: Verifique sua conexão com o sistema.'),

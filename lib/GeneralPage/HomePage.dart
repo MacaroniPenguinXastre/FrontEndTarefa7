@@ -90,41 +90,42 @@ class HomePageState extends State<HomePage> {
     }
   }
 
-
-
-
   @override
   Widget build(BuildContext context) {
+
     final WidgetAndDestination widgetsAndDestination = getWidgetsForCargo();
     final List<Widget> _page = widgetsAndDestination.widgets;
     return Scaffold(
       body: SafeArea(
         child: Row(
           children: [
-            NavigationRail(
-              elevation: 4,
-              groupAlignment: 0.0,
-              selectedIndex: selectedIndex,
-              useIndicator: true,
-              labelType: NavigationRailLabelType.all,
-              leading: FloatingActionButton(onPressed: () =>Navigator.of(context).pop(),
-              child: const Icon(Icons.exit_to_app_outlined),
+             NavigationRail(
+               backgroundColor: Theme.of(context).colorScheme.surface,
+                groupAlignment: 0.0,
+                selectedIndex: selectedIndex,
+                useIndicator: true,
+                labelType: NavigationRailLabelType.all,
+                leading: FloatingActionButton(onPressed: () =>Navigator.of(context).pop(),
+                child: const Icon(Icons.exit_to_app_outlined),
+                ),
+                onDestinationSelected: (int index) {
+                  setState(() {
+                    selectedIndex = index;
+                  });
+                },
+                destinations: widgetsAndDestination.destinations,
               ),
-              onDestinationSelected: (int index) {
-                setState(() {
-                  selectedIndex = index;
-                });
-              },
-              destinations: widgetsAndDestination.destinations,
-            ),
             const VerticalDivider(thickness: 1, width: 1),
             Expanded(
-
               flex: 4,
-              child: IndexedStack(
-                index: selectedIndex,
-                children: _page,
-              ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10.0),
+                  child: IndexedStack(
+                    index: selectedIndex,
+                    children: _page,
+                  ),
+                ),
+
             ),
           ],
         ),

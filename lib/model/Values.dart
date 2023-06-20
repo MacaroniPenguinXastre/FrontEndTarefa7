@@ -4,7 +4,13 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:intl/intl.dart';
-const mainURL = 'https://a86a-2804-14c-487-1bd2-00-1b95.ngrok-free.app';
+const defaultURL = 'http://localhost:8888';
+
+String mainURL = defaultURL;
+
+void setUrl(String newUrl){
+  mainURL = newUrl;
+}
 
 InputDecoration inputDefaultDecoration(String label){
   return InputDecoration(

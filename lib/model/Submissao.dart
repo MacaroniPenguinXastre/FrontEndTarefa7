@@ -9,7 +9,7 @@ class Submissao {
   Treinamento treinamentos;
   Quiz quiz;
   int nota;
-  Map<Pergunta, String> respostas;
+  Map<int, String> respostas;
 
   Submissao({
     required this.id,
@@ -21,28 +21,43 @@ class Submissao {
   });
 
   factory Submissao.fromJson(Map<String, dynamic> json) {
+    final aluno = User.fromJson(json['aluno']);
+    final treinamentos = Treinamento.fromJson(json['treinamentos']);
+    final quiz = Quiz.fromJson(json['quiz']);
+    final nota = json['nota'];
+
+    final respostasJson = json['respostas'];
+    final respostas = respostasJson.map<int, String>((key, value) {
+      return MapEntry(int.parse(key), value.toString());
+    });
+
     return Submissao(
       id: json['id'],
-      aluno: User.fromJson(json['aluno']),
-      treinamentos: Treinamento.fromJson(json['treinamentos']),
-      quiz: Quiz.fromJson(json['quiz']),
-      nota: json['nota'],
-      respostas: Map<Pergunta, String>.from(json['respostas'].map(
-            (key, value) => MapEntry(Pergunta.fromJson(key), value),
-      )),
+      aluno: aluno,
+      treinamentos: treinamentos,
+      quiz: quiz,
+      nota: nota,
+      respostas: respostas,
     );
   }
 
   Map<String, dynamic> toJson() {
+    final alunoJson = aluno.toJson();
+    final treinamentosJson = treinamentos.toJson();
+    final quizJson = quiz.toJson();
+    final notaJson = nota;
+
+    final respostasJson = respostas.map<String, String>((key, value) {
+      return MapEntry(key.toString(), value);
+    });
+
     return {
       'id': id,
-      'aluno': aluno.toJson(),
-      'treinamentos': treinamentos.toJson(),
-      'quiz': quiz.toJson(),
-      'nota': nota,
-      'respostas': Map<String, String>.from(respostas.map(
-            (key, value) => MapEntry(key.toJson(), value),
-      )),
+      'aluno': alunoJson,
+      'treinamentos': treinamentosJson,
+      'quiz': quizJson,
+      'nota': notaJson,
+      'respostas': respostasJson,
     };
   }
 }

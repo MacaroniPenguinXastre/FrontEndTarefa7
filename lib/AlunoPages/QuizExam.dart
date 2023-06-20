@@ -30,7 +30,6 @@ class _QuizExamState extends State<QuizExam> {
 
   void sendSubmissao(BuildContext context,int inscricaoID,int submissaoID)async{
     final URL = Uri.parse('$mainURL/inscricao/$inscricaoID/submissao/$submissaoID');
-
     String jsonSubmissao = jsonEncode(quizRespostasDTO.toJson());
 
     try{

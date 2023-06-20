@@ -10,7 +10,6 @@ import 'package:http/http.dart' as http;
 import '../model/Curso.dart';
 import '../model/Treinamento.dart';
 import '../model/User.dart';
-import 'Inscricoes.dart';
 
 class TreinamentosAlunoTela extends StatefulWidget{
   final User loggedUser;
@@ -29,8 +28,10 @@ class _TreinamentosAlunoTelaState extends State<TreinamentosAlunoTela> {
         Uri.parse('$mainURL/treinamentos/available'),
         headers: {'Content-Type': 'application/json'}
     );
+
     if(response.statusCode == 200){
       List<dynamic> jsonResponse = jsonDecode(utf8.decode(response.bodyBytes));
+      print(jsonResponse);
       setState(() {
         treinoList = jsonResponse.map((json) => Treinamento.fromJson(json)).toList();
       });

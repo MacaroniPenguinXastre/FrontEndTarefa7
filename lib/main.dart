@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:login_page/GeneralPage/HomePage.dart';
@@ -45,6 +46,37 @@ class MainPage extends StatefulWidget{
 
 class LoginPageState extends State<MainPage>{
 
+  void showTextField(BuildContext context,String url) {
+    TextEditingController addressController = TextEditingController(text: url);
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Configuração'),
+          actions: [
+            TextField(
+              controller: addressController,
+              decoration: inputDefaultDecoration('Digite um novo endereço para o sistema'),
+            ),
+            TextButton(onPressed: (){
+              setState(() {
+                setUrl(addressController.text);
+                Navigator.of(context).pop();
+              });
+            }, child: const Text('Confirmar'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Cancelar'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final largura = MediaQuery.of(context).size.width;
@@ -56,6 +88,14 @@ class LoginPageState extends State<MainPage>{
     final url = Uri.parse('$mainURL/public/login');
 
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        actions: [
+          IconButton(onPressed: (){
+              showTextField(context,mainURL);
+          }, icon: const Icon(Icons.settings_outlined))
+        ],
+      ),
       body: Container(
         width: largura,
         height: altura,
@@ -118,24 +158,28 @@ class LoginPageState extends State<MainPage>{
                             "email": username,
                             "password": password
                           });
-
-                          var response = await http.post(url,
-                              headers: {"Content-Type": "application/json"},
-                              body: loginJSON
-                          );
-
-                          if(response.statusCode == 202){
-                            final jsonBody = json.decode(response.body);
-                            User logged = User.fromJson(jsonBody);
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => HomePage(loggedUser: logged),)
+                          try{
+                            var response = await http.post(url,
+                                headers: {"Content-Type": "application/json"},
+                                body: loginJSON
                             );
-                          }
-
-                          else {
+                            if(response.statusCode == 202){
+                              final jsonBody = json.decode(response.body);
+                              User logged = User.fromJson(jsonBody);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => HomePage(loggedUser: logged),)
+                              );
+                            }
+                            else {
                               error.setError("Usuário ou senha incorretos");
                             }
+                          }catch(e){
+                            if(e is SocketException){
+                              error.setError("Não foi possível se conectar com o servidor");
+                            }
+                          }
+
                             },
                           child: const Icon(Icons.arrow_forward_ios),
                         ),
