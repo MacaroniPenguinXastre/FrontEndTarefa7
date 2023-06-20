@@ -135,9 +135,11 @@ class _QuizExamState extends State<QuizExam> {
                   itemExtent: 300.0,
                 ),
                 SliverToBoxAdapter(
-                  child: FloatingActionButton.large(onPressed: (){
+                  child: FloatingActionButton.small(onPressed: (){
                     sendSubmissao(context,widget.alunoInscricao.id,widget.submissao.id);
-                  }),
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('Enviar')),
                 )
               ]
           )

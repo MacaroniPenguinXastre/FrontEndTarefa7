@@ -31,7 +31,6 @@ class _TreinamentosAlunoTelaState extends State<TreinamentosAlunoTela> {
 
     if(response.statusCode == 200){
       List<dynamic> jsonResponse = jsonDecode(utf8.decode(response.bodyBytes));
-      print(jsonResponse);
       setState(() {
         treinoList = jsonResponse.map((json) => Treinamento.fromJson(json)).toList();
       });
@@ -128,7 +127,11 @@ class _TreinamentoDetalhesAlunoPageState extends State<TreinamentoDetalhesAlunoP
       }
     }catch(e){
       if(e is SocketException){
-
+        const snackBar = SnackBar(
+          content: Text('Erro de conexão: Verifique sua conexão com o sistema!'),
+          duration: Duration(seconds: 2),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
       }
     }
 
@@ -173,7 +176,7 @@ class _TreinamentoDetalhesAlunoPageState extends State<TreinamentoDetalhesAlunoP
         break;
         case 409:
           const snackBar = SnackBar(
-            content: Text('Não é possível se inscrever: data limite do treinamento atingido!'),
+            content: Text('Não é possível se inscrever: data limite do treinamento atingido OU você já foi reprovado anteriormente!'),
             duration: Duration(seconds: 2),
           );
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -267,10 +270,10 @@ class _TreinamentoDetalhesAlunoPageState extends State<TreinamentoDetalhesAlunoP
                     sliverTextPaddingWithStyle('Data final do treinamento: ${widget.treinamento.dataFimTreinamento.day}/${widget.treinamento.dataFimTreinamento.month}/${widget.treinamento.dataFimTreinamento.year}', textTheme.titleMedium!),
                     sliverPaddingFloatButton(
                       //Se já tiver inscrito, cancela a inscrição
-                        checkIfIsSubscribed(alunoInscricao) ? FloatingActionButton.large(onPressed:()=> fazerInscricao(false,context,widget.aluno.id,widget.treinamento.id),
+                        checkIfIsSubscribed(alunoInscricao) ? FloatingActionButton.small(onPressed:()=> fazerInscricao(false,context,widget.aluno.id,widget.treinamento.id),
                             child: const Text('Cancelar inscrição'))
                             :
-                        FloatingActionButton.large(onPressed:()=> fazerInscricao(true,context,widget.aluno.id,widget.treinamento.id),
+                        FloatingActionButton.small(onPressed:()=> fazerInscricao(true,context,widget.aluno.id,widget.treinamento.id),
                             child: const Text('Fazer inscrição'))
                     )
                   ],

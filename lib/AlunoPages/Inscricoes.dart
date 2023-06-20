@@ -58,29 +58,32 @@ class _InscricoesAlunoPageState extends State<InscricoesAlunoPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              FloatingActionButton.small(
-                onPressed: () {
-                  setState(() {
-                    getInscricoes();
-                  });
-                },
-                heroTag: 'refreshTreinamentos',
-                child: const Icon(Icons.refresh_outlined),
-              ),
-              const Spacer(),
-              FloatingActionButton.extended(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          TreinamentosAlunoTela(loggedUser: widget.aluno),
-                    ),
-                  );
-                },
-                heroTag: 'listTreinamentos',
-                icon: const Icon(Icons.event_available_outlined),
-                label: const Text('Listar treinamentos'),
+              Row(
+                children: [
+                  FloatingActionButton.small(
+                    onPressed: () {
+                      setState(() {
+                        getInscricoes();
+                      });
+                    },
+                    heroTag: 'refreshTreinamentos',
+                    child: const Icon(Icons.refresh_outlined),
+                  ),
+                  FloatingActionButton.extended(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              TreinamentosAlunoTela(loggedUser: widget.aluno),
+                        ),
+                      );
+                    },
+                    heroTag: 'listTreinamentos',
+                    icon: const Icon(Icons.event_available_outlined),
+                    label: const Text('Listar treinamentos'),
+                  ),
+                ],
               ),
               const Spacer(),
               Text(
@@ -105,8 +108,7 @@ class _InscricoesAlunoPageState extends State<InscricoesAlunoPage> {
                         subtitle: Text(
                           'Status: ${inscricao.statusTreino.toString().split('.').last}',
                         ),
-                        trailing: inscricao.statusTreino ==
-                            StatusTreinamento.INSCRITO
+                        trailing: inscricao.statusTreino == StatusTreinamento.INSCRITO
                             ? IconButton(
                           icon: const Icon(Icons.info_outline),
                           onPressed: () {
@@ -140,8 +142,7 @@ class _InscricoesAlunoPageState extends State<InscricoesAlunoPage> {
                       ),
                     );
                   },
-                  separatorBuilder: (BuildContext context, int index) =>
-                  const Divider(),
+                  separatorBuilder: (BuildContext context, int index) => const Divider(),
                   itemCount: inscricaoList.length,
                 ),
               ),
